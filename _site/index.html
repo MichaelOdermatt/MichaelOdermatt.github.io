@@ -76,7 +76,7 @@
     </div>
 
     <div class="vertical-2-3-center">
-      <svg width="87" height="49" viewBox="0 0 87 49" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg id="plug" class='position-absolute' width="87" height="49" viewBox="0 0 87 49" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect y="14" width="29" height="8" rx="3" fill="#C4C4C4"/>
         <path d="M6 36.5C6 34.567 7.567 33 9.5 33H31.5C33.433 33 35 34.567 35 36.5C35 38.433 33.433 40 31.5 40H9.5C7.567 40 6 38.433 6 36.5Z" fill="#C4C4C4"/>
         <rect x="37" width="20" height="49" fill="#D6CDC0"/>
@@ -88,6 +88,32 @@
     </div>
   </div>
 </div>
+
+<script>
+
+  let isholding = false;
+  const plug = document.getElementById('plug');
+
+  window.addEventListener('mousedown', (event) => {
+    isholding = true;
+    console.log(isholding);
+  });
+
+  window.addEventListener('mousemove', (event) => {
+    if (isholding == true) {
+      plug.style.top = event.clientY;
+      plug.style.left = event.clientX;
+    }
+  });
+
+  window.addEventListener('mouseup', (event) => {
+    isholding = true;
+    if (isholding == true) {
+      isholding = false;
+    }
+  });
+
+</script>
 
 
       </div>
