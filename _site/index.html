@@ -76,7 +76,7 @@
     </div>
 
     <div class="vertical-2-3-center">
-      <svg id="plug" class='position-absolute' width="87" height="49" viewBox="0 0 87 49" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg id="plug" class='position-absolute plug-transition' width="87" height="49" viewBox="0 0 87 49" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect y="14" width="29" height="8" rx="3" fill="#C4C4C4"/>
         <path d="M6 36.5C6 34.567 7.567 33 9.5 33H31.5C33.433 33 35 34.567 35 36.5C35 38.433 33.433 40 31.5 40H9.5C7.567 40 6 38.433 6 36.5Z" fill="#C4C4C4"/>
         <rect x="37" width="20" height="49" fill="#D6CDC0"/>
@@ -91,27 +91,59 @@
 
 <script>
 
-  let isholding = false;
+  let is_holding = false;
+  let is_hovering = false;
+  const plug_offset_x = 55;
+  const plug_offset_y = 25;
+  const floor = '250px';
+  const ceil = '10px';
   const plug = document.getElementById('plug');
 
+  // when the left mouse button is pressed
   window.addEventListener('mousedown', (event) => {
-    isholding = true;
-    console.log(isholding);
+    is_holding = true;
   });
 
+  // when the mosue cursor is over the plug
+  plug.addEventListener('mouseover', (event) => {
+    is_hovering = true;
+  });
+
+  // when the mouse moves
   window.addEventListener('mousemove', (event) => {
-    if (isholding == true) {
-      plug.style.top = event.clientY;
-      plug.style.left = event.clientX;
+    if (is_holding == true && is_hovering == true) {
+      update_plug_position(event.clientY, event.clientX);
     }
   });
 
+  // when the left mouse button is let go
   window.addEventListener('mouseup', (event) => {
-    isholding = true;
-    if (isholding == true) {
-      isholding = false;
+    if (is_holding == true) {
+      is_holding = false;
+      is_hovering = false;
     }
   });
+
+  // function to encapsulate all plug movement logic
+  function update_plug_position(mouseY, mouseX) {
+    plug.style.top = mouseY - plug_offset_y;
+    plug.style.left = mouseX - plug_offset_x;
+  }
+
+  // function to prevent plug from exceeding its upper Y boundry
+  function hit_floor() {
+    if (plug.style.top > floor) {
+      plug.style.top = floor;
+    }
+  }
+
+  // function to prevent plug from exceeding its lower Y boundry
+  function hit_ceil() {
+    if (plug.style.top < ceil) {
+      plug.style.top = ceil;
+      
+    }
+  }
 
 </script>
 

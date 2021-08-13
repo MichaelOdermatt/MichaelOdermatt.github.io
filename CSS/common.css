@@ -14,3 +14,8 @@
 .position-absolute {
   position: absolute;
 }
+
+.plug-transition {
+  transition: top 0.05s, left 0.05s;
+  transition-timing-function: ease-out;
+}
