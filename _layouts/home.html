@@ -57,86 +57,146 @@ layout: default
 
 <script>
 
-  let is_holding = false;
-  let is_hovering = false;
-  const plug_offset_x = 55;
-  const plug_offset_y = 25;
-  // const floor = 400;
-  // const ceil = 40;
-  // let wall_left = $('#boundry_box').offset().left;
-  // let wall_right = $('#boundry_box').offset().right;
-  const plug = document.getElementById('plug');
+  // initialize a plug object
+  function plug_object(plug_offset_x, plug_offset_y, plug_element) {
+    this.is_holding = false;
+    this.is_hovering = false;
+    this.plug_offset_x = plug_offset_x;
+    this.plug_offset_y = plug_offset_y;
+    this.plug_element = document.getElementById(plug_element);
+
+    // function to encapsulate all plug movement logic
+    this.move_plug = function (mouseX, mouseY, play_area_floor, play_area_ceil, play_area_wall_left, play_area_wall_right) {
+      this.update_plug_position(mouseX, mouseY)
+      this.hit_floor(play_area_floor);
+      this.hit_ceil(play_area_ceil);
+      this.hit_wall_left(play_area_wall_left);
+      this.hit_wall_right(play_area_wall_right);
+    }
+
+    // function to update the x and y of the plug
+    this.update_plug_position = function (mouseX, mouseY) {
+      this.plug_element.style.top = mouseY - this.plug_offset_y;
+      this.plug_element.style.left = mouseX - this.plug_offset_x;
+    }
+
+    // function to prevent plug from exceeding its upper Y boundry
+    this.hit_floor = function (floor_y) {
+      if (parseInt(this.plug_element.style.top, 10) > floor_y) {
+        this.plug_element.style.top = floor_y + 'px';
+      }
+    }
+
+    // function to prevent plug from exceeding its lower Y boundry
+    this.hit_ceil = function (ceil_y) {
+      if (parseInt(this.plug_element.style.top, 10) < ceil_y) {
+        this.plug_element.style.top = ceil_y + 'px';
+      }
+    }
+
+    // function to prevent plug from exceeding its lower X boundry
+    this.hit_wall_left = function(wall_left_x) {
+      if (parseInt(this.plug_element.style.left, 10) < wall_left_x) {
+        this.plug_element.style.left = wall_left_x + 'px';
+      }
+    }
+
+    // function to prevent plug from exceeding its lower X boundry
+    this.hit_wall_right = function (wall_right_x) {
+      if (parseInt(this.plug_element.style.left, 10) > wall_right_x) {
+        this.plug_element.style.left = wall_right_x + 'px'; 
+      }
+    }
+
+    //getters and setters
+    this.set_is_holding = function (bool) {
+      this.is_holding = bool;
+    }
+
+    this.set_is_hovering = function (bool) {
+      this.is_hovering = bool;
+    }
+
+    this.get_is_holding = function () {
+      return this.is_holding;
+    }
+
+    this.get_is_hovering = function () {
+      return this.is_hovering;
+    }
+  }
+
+  // initialize an area where the plug can move around in
+  function play_area() {
+    this.floor = 0;
+    this.ceil = 0;
+    this.wall_left = 0;
+    this.wall_right = 0;
+
+    // update the boundries of the play area
+    this.update_play_area = function () {
+      this.floor = $('#boundry_box').offset().top + $('#boundry_box').outerHeight(true);
+      this.ceil = $('#boundry_box').offset().top;
+      this.wall_left = $('#boundry_box').offset().left;
+      this.wall_right = $('#boundry_box').offset().left + $('#boundry_box').outerWidth(true);
+    }
+
+    //getters and setters
+    this.get_floor = function () {
+      return this.floor;
+    }
+
+    this.get_ceil = function () {
+      return this.ceil;
+    }
+
+    this.get_wall_left = function () {
+      return this.wall_left;
+    }
+
+    this.get_wall_right = function () {
+      return this.wall_right;
+    }
+  }
+
+  // create a plug object
+  var plug = new plug_object(55, 25, 'plug');
+
+  // create a play area for the plug
+  var plug_play_area = new play_area();
+  // update the plug's play area
+  plug_play_area.update_play_area();
 
   // when the left mouse button is pressed
   window.addEventListener('mousedown', (event) => {
-    is_holding = true;
+    plug.set_is_holding(true);
   });
 
   // when the mosue cursor is over the plug
-  plug.addEventListener('mouseover', (event) => {
-    is_hovering = true;
+  plug.plug_element.addEventListener('mouseover', (event) => {
+    plug.set_is_hovering(true);
   });
 
   // when the mouse moves
   window.addEventListener('mousemove', (event) => {
-    if (is_holding == true && is_hovering == true) {
-      update_plug_position(event.clientY, event.clientX);
+    if (plug.get_is_holding() && plug.get_is_hovering()) {
+      plug.move_plug(event.clientX, event.clientY, plug_play_area.get_floor(), plug_play_area.get_ceil(), plug_play_area.get_wall_left(), plug_play_area.get_wall_right());
     }
   });
 
   // when the left mouse button is let go
   window.addEventListener('mouseup', (event) => {
-    if (is_holding == true) {
-      is_holding = false;
-      is_hovering = false;
+    if (plug.get_is_holding()) {
+      plug.set_is_holding(false);
+      plug.set_is_hovering(false);
     }
   });
 
-  // function to encapsulate all plug movement logic
-  function update_plug_position(mouseY, mouseX) {
-    plug.style.top = mouseY - plug_offset_y;
-    plug.style.left = mouseX - plug_offset_x;
-    hit_floor();
-    hit_ceil();
-    hit_wall_left();
-    hit_wall_right();
-  }
-
-  // function to prevent plug from exceeding its upper Y boundry
-  function hit_floor() {
-    let floor = $('#boundry_box').offset().top + $('#boundry_box').outerHeight(true);
-    if (parseInt(plug.style.top, 10) > floor) {
-      plug.style.top = floor + 'px';// = floor;
-    }
-  }
-
-  // function to prevent plug from exceeding its lower Y boundry
-  function hit_ceil() {
-    let ceil = $('#boundry_box').offset().top;
-    if (parseInt(plug.style.top, 10) < ceil) {
-      plug.style.top = ceil + 'px';
-      
-    }
-  }
-
-  // function to prevent plug from exceeding its lower X boundry
-  function hit_wall_left() {
-    let wall_left = $('#boundry_box').offset().left;
-    if (parseInt(plug.style.left, 10) < wall_left) {
-      plug.style.left = wall_left + 'px';
-      
-    }
-  }
-
-  // function to prevent plug from exceeding its lower X boundry
-  function hit_wall_right() {
-    let wall_right = $('#boundry_box').offset().left + $('#boundry_box').outerWidth(true);
-    if (parseInt(plug.style.left, 10) > wall_right) {
-      plug.style.left = wall_right + 'px';
-      
-    }
-  }
-
+  // on window resize, update the plug position and the bounding box where the plug can exist
+  $( window ).resize(function() {
+    plug_play_area.update_play_area();
+    plug.move_plug(plug.plug_element.style.left, plug.plug_element.style.top, plug_play_area.get_floor(), plug_play_area.get_ceil(), plug_play_area.get_wall_left(), plug_play_area.get_wall_right());
+  });
 
 </script>
 
