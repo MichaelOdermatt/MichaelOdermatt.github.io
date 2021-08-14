@@ -62,6 +62,8 @@ layout: default
   const plug_offset_y = 25;
   const floor = 400;
   const ceil = 40;
+  const wall_left = 825;
+  const wall_right = 1350;
   const plug = document.getElementById('plug');
 
   // when the left mouse button is pressed
@@ -95,6 +97,8 @@ layout: default
     plug.style.left = mouseX - plug_offset_x;
     hit_floor();
     hit_ceil();
+    hit_wall_left();
+    hit_wall_right();
   }
 
   // function to prevent plug from exceeding its upper Y boundry
@@ -111,6 +115,23 @@ layout: default
       
     }
   }
+
+  // function to prevent plug from exceeding its lower X boundry
+  function hit_wall_left() {
+    if (parseInt(plug.style.left, 10) < wall_left) {
+      plug.style.left = wall_left + 'px';
+      
+    }
+  }
+
+  // function to prevent plug from exceeding its lower X boundry
+  function hit_wall_right() {
+    if (parseInt(plug.style.left, 10) > wall_right) {
+      plug.style.left = wall_right + 'px';
+      
+    }
+  }
+
 
 </script>
 
