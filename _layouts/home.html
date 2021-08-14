@@ -2,7 +2,8 @@
 layout: default
 ---
 
-<div class="wrapper h-25">
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+<div class="wrapper h-25" id="boundry_box">
   <div class="d-flex flex-justify-around">
     <div class="vertical-2-3-center">
       <svg width="137" height="230" viewBox="0 0 137 230" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -60,10 +61,10 @@ layout: default
   let is_hovering = false;
   const plug_offset_x = 55;
   const plug_offset_y = 25;
-  const floor = 400;
-  const ceil = 40;
-  const wall_left = 825;
-  const wall_right = 1350;
+  // const floor = 400;
+  // const ceil = 40;
+  // let wall_left = $('#boundry_box').offset().left;
+  // let wall_right = $('#boundry_box').offset().right;
   const plug = document.getElementById('plug');
 
   // when the left mouse button is pressed
@@ -103,6 +104,7 @@ layout: default
 
   // function to prevent plug from exceeding its upper Y boundry
   function hit_floor() {
+    let floor = $('#boundry_box').offset().top + $('#boundry_box').outerHeight(true);
     if (parseInt(plug.style.top, 10) > floor) {
       plug.style.top = floor + 'px';// = floor;
     }
@@ -110,6 +112,7 @@ layout: default
 
   // function to prevent plug from exceeding its lower Y boundry
   function hit_ceil() {
+    let ceil = $('#boundry_box').offset().top;
     if (parseInt(plug.style.top, 10) < ceil) {
       plug.style.top = ceil + 'px';
       
@@ -118,6 +121,7 @@ layout: default
 
   // function to prevent plug from exceeding its lower X boundry
   function hit_wall_left() {
+    let wall_left = $('#boundry_box').offset().left;
     if (parseInt(plug.style.left, 10) < wall_left) {
       plug.style.left = wall_left + 'px';
       
@@ -126,6 +130,7 @@ layout: default
 
   // function to prevent plug from exceeding its lower X boundry
   function hit_wall_right() {
+    let wall_right = $('#boundry_box').offset().left + $('#boundry_box').outerWidth(true);
     if (parseInt(plug.style.left, 10) > wall_right) {
       plug.style.left = wall_right + 'px';
       
