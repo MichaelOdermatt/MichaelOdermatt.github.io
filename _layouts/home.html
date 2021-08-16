@@ -58,26 +58,39 @@ layout: default
 <script>
 
   // initialize a plug object
-  function plug_object(plug_offset_x, plug_offset_y, plug_element) {
+  function plug_object(plug_offset_x, plug_offset_y, plug_element, play_area_floor, play_area_ceil, play_area_wall_left, play_area_wall_right) {
     this.is_holding = false;
     this.is_hovering = false;
     this.plug_offset_x = plug_offset_x;
     this.plug_offset_y = plug_offset_y;
+    this.play_area_floor = play_area_floor;
+    this.play_area_ceil = play_area_ceil;
+    this.play_area_wall_left = play_area_wall_left;
+    this.play_area_wall_right = play_area_wall_right;
+    this.gravity = 1;
     this.plug_element = document.getElementById(plug_element);
 
     // function to encapsulate all plug movement logic
-    this.move_plug = function (mouseX, mouseY, play_area_floor, play_area_ceil, play_area_wall_left, play_area_wall_right) {
+    this.move_plug = function (mouseX, mouseY) {
       this.update_plug_position(mouseX, mouseY)
-      this.hit_floor(play_area_floor);
-      this.hit_ceil(play_area_ceil);
-      this.hit_wall_left(play_area_wall_left);
-      this.hit_wall_right(play_area_wall_right);
+      this.hit_floor(this.play_area_floor);
+      this.hit_ceil(this.play_area_ceil);
+      this.hit_wall_left(this.play_area_wall_left);
+      this.hit_wall_right(this.play_area_wall_right);
+    }
+
+    // function to encapsulate all plug movement logic
+    this.apply_gravity = function () {
+      if (this.is_holding==false) {
+        //this.move_plug(this.plug_element.style.left, this.plug_element.style.top - this.gravity, plug_play_area.get_floor(), plug_play_area.get_ceil(), plug_play_area.get_wall_left(), plug_play_area.get_wall_right());
+        //console.log('object is in freefall');
+      }
     }
 
     // function to update the x and y of the plug
-    this.update_plug_position = function (mouseX, mouseY) {
-      this.plug_element.style.top = mouseY - this.plug_offset_y;
-      this.plug_element.style.left = mouseX - this.plug_offset_x;
+    this.update_plug_position = function (newX, newY) {
+      this.plug_element.style.left = newX - this.plug_offset_x;
+      this.plug_element.style.top = newY - this.plug_offset_y;
     }
 
     // function to prevent plug from exceeding its upper Y boundry
@@ -159,28 +172,38 @@ layout: default
     }
   }
 
-  // create a plug object
-  var plug = new plug_object(55, 25, 'plug');
-
   // create a play area for the plug
   var plug_play_area = new play_area();
   // update the plug's play area
   plug_play_area.update_play_area();
 
-  // when the left mouse button is pressed
-  window.addEventListener('mousedown', (event) => {
-    plug.set_is_holding(true);
-  });
+  // create a plug object
+  var plug = new plug_object(55, 25,'plug' ,plug_play_area.get_floor(), plug_play_area.get_ceil(), plug_play_area.get_wall_left(), plug_play_area.get_wall_right());
 
+  // every 20 miliseconds, attempt to appy gravity to the plug
+  var gravity_interval = setInterval("plug.apply_gravity()", 20);
+  
   // when the mosue cursor is over the plug
   plug.plug_element.addEventListener('mouseover', (event) => {
     plug.set_is_hovering(true);
   });
 
+  // when the mosue cursor is no longer over the plug
+  plug.plug_element.addEventListener('mouseout', (event) => {
+    plug.set_is_hovering(false);
+  });
+
   // when the mouse moves
   window.addEventListener('mousemove', (event) => {
-    if (plug.get_is_holding() && plug.get_is_hovering()) {
-      plug.move_plug(event.clientX, event.clientY, plug_play_area.get_floor(), plug_play_area.get_ceil(), plug_play_area.get_wall_left(), plug_play_area.get_wall_right());
+    if (plug.get_is_holding()) {
+      plug.move_plug(event.clientX, event.clientY);
+    }
+  });
+
+ // when the left mouse button is pressed
+ window.addEventListener('mousedown', (event) => {
+    if (plug.get_is_hovering()) {
+      plug.set_is_holding(true);
     }
   });
 
@@ -188,14 +211,13 @@ layout: default
   window.addEventListener('mouseup', (event) => {
     if (plug.get_is_holding()) {
       plug.set_is_holding(false);
-      plug.set_is_hovering(false);
     }
   });
 
   // on window resize, update the plug position and the bounding box where the plug can exist
   $( window ).resize(function() {
     plug_play_area.update_play_area();
-    plug.move_plug(plug.plug_element.style.left, plug.plug_element.style.top, plug_play_area.get_floor(), plug_play_area.get_ceil(), plug_play_area.get_wall_left(), plug_play_area.get_wall_right());
+    plug.move_plug(plug.plug_element.style.left, plug.plug_element.style.top);
   });
 
 </script>
