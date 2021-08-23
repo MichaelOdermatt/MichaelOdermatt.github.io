@@ -96,63 +96,82 @@
   function plug_object(plug_offset_x, plug_offset_y, plug_element, play_area_floor, play_area_ceil, play_area_wall_left, play_area_wall_right) {
     this.is_holding = false;
     this.is_hovering = false;
+    this.plug_x = 0;
+    this.plug_y = 0;
     this.plug_offset_x = plug_offset_x;
     this.plug_offset_y = plug_offset_y;
     this.play_area_floor = play_area_floor;
     this.play_area_ceil = play_area_ceil;
     this.play_area_wall_left = play_area_wall_left;
     this.play_area_wall_right = play_area_wall_right;
-    this.gravity = 1;
+    this.gravity = 0.1;
     this.plug_element = document.getElementById(plug_element);
 
     // function to encapsulate all plug movement logic
-    this.move_plug = function (mouseX, mouseY) {
-      this.update_plug_position(mouseX, mouseY)
+    this.move_plug = function (new_x, new_y) {
+      this.update_plug_position(new_x, new_y)
       this.hit_floor(this.play_area_floor);
       this.hit_ceil(this.play_area_ceil);
       this.hit_wall_left(this.play_area_wall_left);
       this.hit_wall_right(this.play_area_wall_right);
+      this.update_plug_element_position();
     }
 
     // function to encapsulate all plug movement logic
     this.apply_gravity = function () {
       if (this.is_holding==false) {
-        //this.move_plug(this.plug_element.style.left, this.plug_element.style.top - this.gravity, plug_play_area.get_floor(), plug_play_area.get_ceil(), plug_play_area.get_wall_left(), plug_play_area.get_wall_right());
-        //console.log('object is in freefall');
+        let x = this.plug_element.style.left;
+        let y = parseInt(this.plug_element.style.top, 10) - this.gravity;
+        this.move_plug(x, y);
+        console.log(x);
       }
     }
 
     // function to update the x and y of the plug
     this.update_plug_position = function (newX, newY) {
-      this.plug_element.style.left = newX - this.plug_offset_x;
-      this.plug_element.style.top = newY - this.plug_offset_y;
+      this.plug_x = newX - this.plug_offset_x;
+      this.plug_y = newY - this.plug_offset_y;
+    }
+
+    // update the position of the SVG representing the plug with the plug objects x and y
+    this.update_plug_element_position = function () {
+      this.plug_element.style.left =  this.plug_x;
+      this.plug_element.style.top =  this.plug_y;
+    }
+
+    // update the boundries of the play area
+    this.update_play_area = function () {
+      this.play_area_floor = $('#boundry_box').offset().top + $('#boundry_box').outerHeight(true);
+      this.play_area_ceil = $('#boundry_box').offset().top;
+      this.play_area_wall_left = $('#boundry_box').offset().left;
+      this.play_area_wall_right = $('#boundry_box').offset().left + $('#boundry_box').outerWidth(true);
     }
 
     // function to prevent plug from exceeding its upper Y boundry
     this.hit_floor = function (floor_y) {
-      if (parseInt(this.plug_element.style.top, 10) > floor_y) {
-        this.plug_element.style.top = floor_y + 'px';
+      if (parseInt(this.plug_y, 10) > floor_y) {
+        this.plug_y = floor_y + 'px';
       }
     }
 
     // function to prevent plug from exceeding its lower Y boundry
     this.hit_ceil = function (ceil_y) {
-      if (parseInt(this.plug_element.style.top, 10) < ceil_y) {
-        this.plug_element.style.top = ceil_y + 'px';
+      if (parseInt(this.plug_y, 10) < ceil_y) {
+        this.plug_y = ceil_y + 'px';
       }
     }
 
     // function to prevent plug from exceeding its lower X boundry
     this.hit_wall_left = function(wall_left_x) {
-      if (parseInt(this.plug_element.style.left, 10) < wall_left_x) {
-        this.plug_element.style.left = wall_left_x + 'px';
+      if (parseInt(this.plug_x, 10) < wall_left_x) {
+        this.plug_x = wall_left_x + 'px';
       }
     }
 
     // function to prevent plug from exceeding its lower X boundry
     this.hit_wall_right = function (wall_right_x) {
-      if (parseInt(this.plug_element.style.left, 10) > wall_right_x) {
-        this.plug_element.style.left = wall_right_x + 'px'; 
+      if (parseInt(this.plug_x, 10) > wall_right_x) {
+        this.plug_x = wall_right_x + 'px'; 
       }
     }
 
@@ -174,50 +193,15 @@
     }
   }
 
-  // initialize an area where the plug can move around in
-  function play_area() {
-    this.floor = 0;
-    this.ceil = 0;
-    this.wall_left = 0;
-    this.wall_right = 0;
-
-    // update the boundries of the play area
-    this.update_play_area = function () {
-      this.floor = $('#boundry_box').offset().top + $('#boundry_box').outerHeight(true);
-      this.ceil = $('#boundry_box').offset().top;
-      this.wall_left = $('#boundry_box').offset().left;
-      this.wall_right = $('#boundry_box').offset().left + $('#boundry_box').outerWidth(true);
-    }
-
-    //getters and setters
-    this.get_floor = function () {
-      return this.floor;
-    }
-
-    this.get_ceil = function () {
-      return this.ceil;
-    }
-
-    this.get_wall_left = function () {
-      return this.wall_left;
-    }
-
-    this.get_wall_right = function () {
-      return this.wall_right;
-    }
-  }
-
-  // create a play area for the plug
-  var plug_play_area = new play_area();
-  // update the plug's play area
-  plug_play_area.update_play_area();
-
   // create a plug object
-  var plug = new plug_object(55, 25,'plug' ,plug_play_area.get_floor(), plug_play_area.get_ceil(), plug_play_area.get_wall_left(), plug_play_area.get_wall_right());
+  var plug = new plug_object(55, 25,'plug' , 0, 0, 0, 0);
+
+  // update the boundries of where the plug can exist
+  plug.update_play_area();
 
   // every 20 miliseconds, attempt to appy gravity to the plug
-  var gravity_interval = setInterval("plug.apply_gravity()", 20);
-  
+  //var gravity_interval = setInterval("plug.apply_gravity()", 20);
+
   // when the mosue cursor is over the plug
   plug.plug_element.addEventListener('mouseover', (event) => {
     plug.set_is_hovering(true);
@@ -251,8 +235,8 @@
 
   // on window resize, update the plug position and the bounding box where the plug can exist
   $( window ).resize(function() {
-    plug_play_area.update_play_area();
-    plug.move_plug(plug.plug_element.style.left, plug.plug_element.style.top);
+    plug.update_play_area();
+    plug.move_plug(plug.plug_x, plug.plug_y);
   });
 
 </script>
