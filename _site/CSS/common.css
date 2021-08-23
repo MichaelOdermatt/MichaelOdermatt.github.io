@@ -1,6 +1,7 @@
 /** common CSS stylings used throughout the project **/
 .d-flex { display: flex !important; }
 
+.flex-justify-center { justify-content: center !important; }
 .flex-justify-around { justify-content: space-around !important; }
 
 .vertical-2-3-center {
@@ -19,3 +20,11 @@
   transition: top 0.05s, left 0.05s;
   transition-timing-function: ease-out;
 }
+
+/* Set the width to 100% */
+.width-full { width: 100% !important; }
+
+/* Set the height to 100% */
+.height-full { height: 100% !important; }
+
+.z-index-5 {z-index: 5;}
