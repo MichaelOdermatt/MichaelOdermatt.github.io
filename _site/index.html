@@ -110,10 +110,10 @@
     // function to encapsulate all plug movement logic
     this.move_plug = function (new_x, new_y) {
       this.update_plug_position(new_x, new_y)
-      this.check_hit_floor(this.play_area_floor);
-      this.check_hit_ceil(this.play_area_ceil);
-      this.check_hit_wall_left(this.play_area_wall_left);
-      this.check_hit_wall_right(this.play_area_wall_right);
+      this.check_hit_floor();
+      this.check_hit_ceil();
+      this.check_hit_wall_left();
+      this.check_hit_wall_right();
       this.update_plug_element_position();
     }
 
@@ -125,8 +125,8 @@
 
     // update the position of the SVG representing the plug with the plug objects x and y
     this.update_plug_element_position = function () {
-      this.plug_element.style.left =  this.plug_x;
-      this.plug_element.style.top =  this.plug_y;
+      this.plug_element.style.left =  this.plug_x + 'px';
+      this.plug_element.style.top =  this.plug_y + 'px';
     }
 
     // update the boundries of the play area
@@ -138,30 +138,30 @@
     }
 
     // function to prevent plug from exceeding its upper Y boundry
-    this.check_hit_floor = function (floor_y) {
-      if (this.plug_y > floor_y) {
-        this.plug_y = floor_y + 'px';
+    this.check_hit_floor = function () {
+      if (this.plug_y > this.play_area_floor) {
+        this.plug_y = this.play_area_floor;
       }
     }
 
     // function to prevent plug from exceeding its lower Y boundry
-    this.check_hit_ceil = function (ceil_y) {
-      if (this.plug_y < ceil_y) {
-        this.plug_y = ceil_y + 'px';
+    this.check_hit_ceil = function () {
+      if (this.plug_y < this.play_area_ceil) {
+        this.plug_y = this.play_area_ceil;
       }
     }
 
     // function to prevent plug from exceeding its lower X boundry
-    this.check_hit_wall_left = function(wall_left_x) {
-      if (this.plug_x < wall_left_x) {
-        this.plug_x = wall_left_x + 'px';
+    this.check_hit_wall_left = function() {
+      if (this.plug_x < this.play_area_wall_left) {
+        this.plug_x = this.play_area_wall_left;
       }
     }
 
     // function to prevent plug from exceeding its lower X boundry
-    this.check_hit_wall_right = function (wall_right_x) {
-      if (this.plug_x > wall_right_x) {
-        this.plug_x = wall_right_x + 'px'; 
+    this.check_hit_wall_right = function () {
+      if (this.plug_x > this.play_area_wall_right) {
+        this.plug_x = this.play_area_wall_right; 
       }
     }
 
