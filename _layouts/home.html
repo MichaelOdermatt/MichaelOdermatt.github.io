@@ -210,10 +210,11 @@ layout: default
     line_svg.style.left = plug.play_area_wall_left;
     line_svg.style.top = plug.play_area_ceil;
 
-    // resize the svg element
+    // resize the svg element to match the bounding box
     $("#" + line_svg_id).attr('width', plug.play_area_wall_right + "px");
     $("#" + line_svg_id).attr('height', plug.play_area_floor + "px");
 
+    // calculate the end point and start point coordinates
     var cord_end_x = plug.play_area_wall_right - plug.play_area_wall_left;
     var cord_end_y = plug.play_area_floor/2;
 
