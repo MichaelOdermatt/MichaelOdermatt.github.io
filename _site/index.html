@@ -88,7 +88,7 @@
       </svg>
     </div>
     <div class="vertical-2-3-center">
-      <svg id="cord_svg" width="1000" height="1000" class="position-absolute pointer-events-none">
+      <svg id="cord_svg" class="position-absolute pointer-events-none">
         <line id="cord" x1="0" y1="0" x2="500" y2="200" style="stroke:#D6CDC0;stroke-width:4" />
       </svg>
     </div>
@@ -123,7 +123,7 @@
       this.check_hit_wall_left();
       this.check_hit_wall_right();
       this.update_plug_element_position();
-      create_line(this.plug_x + this.plug_offset_x, this.plug_y + this.plug_offset_y, this.play_area_wall_right, (this.play_area_floor - this.play_area_ceil), "cord", "cord_svg")
+      create_line(this.plug_x + this.plug_offset_x, this.plug_y + this.plug_offset_y, this.play_area_wall_right + this.plug_offset_x, this.play_area_floor/2, "cord", "cord_svg")
     }
 
     // function to update the x and y of the plug
@@ -241,16 +241,26 @@
     line_svg = document.getElementById(line_svg_id);
     line = document.getElementById(line_id);
 
-    line_svg.style.left = x1;
-    line_svg.style.top = y1;
+    // move the svg element
+    line_svg.style.left = plug.play_area_wall_left;
+    line_svg.style.top = plug.play_area_ceil;
 
-    //set the start point and end point for the cord
-    $("#" + line_id).attr("x2", x2 - x1)
-    $("#" + line_id).attr("y2", y2 - y1)
+    // resize the svg element
+    $("#" + line_svg_id).attr('width', plug.play_area_wall_right + "px");
+    $("#" + line_svg_id).attr('height', plug.play_area_floor + "px");
 
-    //resize the svg element
-    $("#" + line_svg_id).attr("width", abs(x2 - x1));
+    var cord_end_x = plug.play_area_wall_right - plug.play_area_wall_left;
+    var cord_end_y = plug.play_area_floor/2;
 
+    var cord_start_x = (plug.plug_x + plug.plug_offset_x) - plug.play_area_wall_left;
+    var cord_start_y = (plug.plug_y + plug.plug_offset_y) - plug.play_area_ceil;
+
+    // set the start point and end point for the cord
+    $("#" + line_id).attr("x1", cord_start_x)
+    $("#" + line_id).attr("y1", cord_start_y)
+
+    $("#" + line_id).attr("x2", cord_end_x)
+    $("#" + line_id).attr("y2", cord_end_y)
   }
 
 </script>
