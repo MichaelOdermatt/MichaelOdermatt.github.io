@@ -90,6 +90,7 @@
     <div class="vertical-2-3-center">
       <svg id="cord_svg" class="position-absolute pointer-events-none">
         <path id="cord" d="M0 0" stroke="#D6CDC0" stroke-width="4" stroke-linecap="round" fill="transparent"></path>
+        <line x1="0" y1="0" x2="0" y2="0" id="cord_shadow" stroke="#9A9286" stroke-width="5" stroke-linecap="round" fill="transparent"></line>
       </svg>
     </div>
   </div>
@@ -101,7 +102,7 @@
   var cord_end_div = $("#cord_end");
 
   // initialize a plug object
-  function plug_object(plug_offset_x, plug_offset_y, plug_element, cord_svg_id, cord_element_id, play_area_floor, play_area_ceil, play_area_wall_left, play_area_wall_right) {
+  function plug_object(plug_offset_x, plug_offset_y, plug_element, cord_svg_id, cord_element_id, cord_shadow_id, play_area_floor, play_area_ceil, play_area_wall_left, play_area_wall_right) {
     this.is_holding = false;
     this.is_hovering = false;
     this.plug_x = 0;
@@ -110,14 +111,16 @@
     this.plug_offset_y = plug_offset_y;
     this.cord_offset_min = 100;
     this.cord_offset_max = 200;
+    this.cord_shadow_offset = 50;
     this.play_area_floor = play_area_floor;
     this.play_area_ceil = play_area_ceil;
     this.play_area_wall_left = play_area_wall_left;
     this.play_area_wall_right = play_area_wall_right;
     this.gravity = 0.1;
-    this.plug_element = document.getElementById(plug_element);
+    this.plug_element = $("#" + plug_element);
     this.cord_element = $("#" + cord_element_id)
     this.cord_svg = $("#" + cord_svg_id)
+    this.cord_shadow_element = $("#" + cord_shadow_id)
 
     // function to encapsulate all plug movement logic
     this.move_plug = function (new_x, new_y) {
@@ -138,8 +141,7 @@
 
     // update the position of the SVG representing the plug with the plug objects x and y
     this.update_plug_element_position = function () {
-      this.plug_element.style.left =  this.plug_x + 'px';
-      this.plug_element.style.top =  this.plug_y + 'px';
+      this.plug_element.css({left: this.plug_x + 'px', top: this.plug_y + 'px'});
     }
 
     // function to update cord position
@@ -150,16 +152,20 @@
 
       // resize the svg element to match the bounding box
       this.cord_svg.attr('width', this.play_area_wall_right + "px");
-      this.cord_svg.attr('height', this.play_area_floor + this.cord_offset_min + "px");
+      this.cord_svg.attr('height', this.play_area_floor + "px");
 
       // calculate the end point and start point coordinates
-      var cord_end_x = this.play_area_wall_right - this.play_area_wall_left + this.cord_offset_min;
+      var cord_end_x = this.play_area_wall_right - this.play_area_wall_left;
       var cord_end_y = this.get_play_area_center_y();
 
       var cord_start_x = (this.plug_x + this.plug_offset_x) - this.play_area_wall_left;
       var cord_start_y = (this.plug_y + this.plug_offset_y) - this.play_area_ceil;
 
+      // calculate the curve for the path
       var curve = this.calc_curve(cord_start_x, cord_start_y, cord_end_x, cord_end_y, cord_end_x);
+
+      // draw the shadow element
+      this.draw_shadow(cord_start_x, cord_end_x);
 
       this.cord_element.attr("d", curve)
     }
@@ -174,34 +180,46 @@
 
     // function to prevent plug from exceeding its upper Y boundry
     this.check_hit_floor = function () {
-      if (this.plug_y > this.play_area_floor) {
-        this.plug_y = this.play_area_floor;
-      }
+      var boundry = this.play_area_floor - this.plug_element.attr("height");
+      this.plug_y = this.constrain_upper(this.plug_y, boundry)
     }
 
     // function to prevent plug from exceeding its lower Y boundry
     this.check_hit_ceil = function () {
-      if (this.plug_y < this.play_area_ceil) {
-        this.plug_y = this.play_area_ceil;
-      }
+      this.plug_y = this.constrain_lower(this.plug_y, this.play_area_ceil)
     }
 
     // function to prevent plug from exceeding its lower X boundry
     this.check_hit_wall_left = function() {
-      if (this.plug_x < this.play_area_wall_left) {
-        this.plug_x = this.play_area_wall_left;
-      }
+      this.plug_x = this.constrain_lower(this.plug_x, this.play_area_wall_left)
     }
 
     // function to prevent plug from exceeding its lower X boundry
     this.check_hit_wall_right = function () {
-      if (this.plug_x > this.play_area_wall_right) {
-        this.plug_x = this.play_area_wall_right; 
+      var boundry = this.play_area_wall_right - this.plug_element.attr("width");
+      this.plug_x = this.constrain_upper(this.plug_x, boundry)
+    }
+
+    // constrains a value to a upper boundry
+    this.constrain_upper = function (value, constraint) {
+      if (value > constraint) {
+        return constraint; 
+      } else {
+        return value
       }
     }
 
+    // constrains a value to a lower boundry
+    this.constrain_lower = function (value, constraint) {
+      if (value < constraint) {
+        return constraint; 
+      } else {
+        return value
+      }
+    }
+
+    // calculate quadratic
     this.calc_curve = function (cord_start_x, cord_start_y, cord_end_x, cord_end_y, cord_length_max) {
-      // calculate quadratic
 
       // mid-point of line
       var mpx = (cord_end_x + cord_start_x) * 0.5;
@@ -222,8 +240,17 @@
     	// location of control point
     	var c1x = mpx + offset * Math.cos(theta);
     	var c1y = mpy + offset * Math.sin(theta);
+      c1y = this.constrain_upper(c1y, this.get_play_area_height());
 
       return "M" + cord_start_x + " " + cord_start_y + " Q " + c1x + " " + c1y + " " + cord_end_x + " " + cord_end_y;
+    }
+
+    // draw the shadow for the cord and plug
+    this.draw_shadow = function (cord_start_x, cord_end_x) {
+      this.cord_shadow_element.attr("x1", cord_start_x - this.cord_shadow_offset );
+      this.cord_shadow_element.attr("x2", cord_end_x);
+      this.cord_shadow_element.attr("y1", this.get_play_area_height());
+      this.cord_shadow_element.attr("y2", this.get_play_area_height());
     }
 
     //getters and setters
@@ -250,22 +277,26 @@
     this.get_play_area_center_y = function () {
       return (this.play_area_floor + this.play_area_ceil)/2;
     }
+
+    this.get_play_area_height = function () {
+      return this.play_area_floor - this.play_area_ceil
+    }
   }
 
   // create a plug object
-  var plug = new plug_object(55, 25,'plug', "cord_svg", "cord", 0, 0, 0, 0);
+  var plug = new plug_object(55, 25,'plug', "cord_svg", "cord", "cord_shadow", 0, 0, 0, 0);
 
   // update the boundries of where the plug can exist
   plug.update_play_area();
   plug.move_plug(plug.get_play_area_center_x(), plug.get_play_area_center_y());
 
   // when the mosue cursor is over the plug
-  plug.plug_element.addEventListener('mouseover', (event) => {
+  plug.plug_element.mouseover( function() {
     plug.set_is_hovering(true);
   });
 
   // when the mosue cursor is no longer over the plug
-  plug.plug_element.addEventListener('mouseout', (event) => {
+  plug.plug_element.mouseout(function() {
     plug.set_is_hovering(false);
   });
 
