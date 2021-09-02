@@ -66,7 +66,7 @@ layout: default
   var cord_end_div = $("#cord_end");
 
   // initialize a plug object
-  function plug_object(plug_offset_x, plug_offset_y, plug_element, play_area_floor, play_area_ceil, play_area_wall_left, play_area_wall_right) {
+  function plug_object(plug_offset_x, plug_offset_y, plug_element, cord_svg_id, cord_element_id, play_area_floor, play_area_ceil, play_area_wall_left, play_area_wall_right) {
     this.is_holding = false;
     this.is_hovering = false;
     this.plug_x = 0;
@@ -79,6 +79,8 @@ layout: default
     this.play_area_wall_right = play_area_wall_right;
     this.gravity = 0.1;
     this.plug_element = document.getElementById(plug_element);
+    this.cord_element = $("#" + cord_element_id)
+    this.cord_svg = $("#" + cord_svg_id)
 
     // function to encapsulate all plug movement logic
     this.move_plug = function (new_x, new_y) {
@@ -88,7 +90,7 @@ layout: default
       this.check_hit_wall_left();
       this.check_hit_wall_right();
       this.update_plug_element_position();
-      create_line(this.plug_x + this.plug_offset_x, this.plug_y + this.plug_offset_y, this.play_area_wall_right + this.plug_offset_x, this.play_area_floor/2, "cord", "cord_svg")
+      this.update_cord();
     }
 
     // function to update the x and y of the plug
@@ -101,6 +103,31 @@ layout: default
     this.update_plug_element_position = function () {
       this.plug_element.style.left =  this.plug_x + 'px';
       this.plug_element.style.top =  this.plug_y + 'px';
+    }
+
+    // function to update cord position
+    this.update_cord = function() {
+      // move the svg element
+      console.log(this.play_area_wall_left);
+      this.cord_svg.css({left: this.play_area_wall_left, top: this.play_area_ceil});
+
+      // resize the svg element to match the bounding box
+      this.cord_svg.attr('width', this.play_area_wall_right + "px");
+      this.cord_svg.attr('height', this.play_area_floor + "px");
+
+      // calculate the end point and start point coordinates
+      var cord_end_x = this.play_area_wall_right - this.play_area_wall_left;
+      var cord_end_y = this.play_area_floor/2;
+
+      var cord_start_x = (this.plug_x + this.plug_offset_x) - this.play_area_wall_left;
+      var cord_start_y = (this.plug_y + this.plug_offset_y) - this.play_area_ceil;
+
+      // set the start point and end point for the cord
+      this.cord_element.attr("x1", cord_start_x)
+      this.cord_element.attr("y1", cord_start_y)
+
+      this.cord_element.attr("x2", cord_end_x)
+      this.cord_element.attr("y2", cord_end_y)
     }
 
     // update the boundries of the play area
@@ -158,7 +185,7 @@ layout: default
   }
 
   // create a plug object
-  var plug = new plug_object(55, 25,'plug' , 0, 0, 0, 0);
+  var plug = new plug_object(55, 25,'plug', "cord_svg", "cord", 0, 0, 0, 0);
 
   // update the boundries of where the plug can exist
   plug.update_play_area();
@@ -199,35 +226,6 @@ layout: default
     plug.update_play_area();
     plug.move_plug(plug.plug_x, plug.plug_y);
   });
-
-  // test function
-  function create_line(x1, y1, x2, y2, line_id, line_svg_id) {
-
-    line_svg = document.getElementById(line_svg_id);
-    line = document.getElementById(line_id);
-
-    // move the svg element
-    line_svg.style.left = plug.play_area_wall_left;
-    line_svg.style.top = plug.play_area_ceil;
-
-    // resize the svg element to match the bounding box
-    $("#" + line_svg_id).attr('width', plug.play_area_wall_right + "px");
-    $("#" + line_svg_id).attr('height', plug.play_area_floor + "px");
-
-    // calculate the end point and start point coordinates
-    var cord_end_x = plug.play_area_wall_right - plug.play_area_wall_left;
-    var cord_end_y = plug.play_area_floor/2;
-
-    var cord_start_x = (plug.plug_x + plug.plug_offset_x) - plug.play_area_wall_left;
-    var cord_start_y = (plug.plug_y + plug.plug_offset_y) - plug.play_area_ceil;
-
-    // set the start point and end point for the cord
-    $("#" + line_id).attr("x1", cord_start_x)
-    $("#" + line_id).attr("y1", cord_start_y)
-
-    $("#" + line_id).attr("x2", cord_end_x)
-    $("#" + line_id).attr("y2", cord_end_y)
-  }
 
 </script>
 
