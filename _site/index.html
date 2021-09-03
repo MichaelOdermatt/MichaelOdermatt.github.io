@@ -103,6 +103,7 @@
 
   // initialize a plug object
   function plug_object(plug_offset_x, plug_offset_y, plug_element, cord_svg_id, cord_element_id, cord_shadow_id, play_area_floor, play_area_ceil, play_area_wall_left, play_area_wall_right) {
+    this.is_plugged_in = false;
     this.is_holding = false;
     this.is_hovering = false;
     this.plug_x = 0;
@@ -121,14 +122,19 @@
     this.cord_element = $("#" + cord_element_id)
     this.cord_svg = $("#" + cord_svg_id)
     this.cord_shadow_element = $("#" + cord_shadow_id)
+    this.socket_offset_from_center_y = 5;
+    this.socket_offset_from_wall_left_x = 0;
+    this.socket_buffer = 5;
+    this.socket_hitbox_x = 0;
+    this.socket_hitbox_y = 0;
+    this.socket_x = 0;
+    this.socket_y = 0;
 
     // function to encapsulate all plug movement logic
     this.move_plug = function (new_x, new_y) {
       this.update_plug_position(new_x, new_y)
-      this.check_hit_floor();
-      this.check_hit_ceil();
-      this.check_hit_wall_left();
-      this.check_hit_wall_right();
+      this.check_if_touching_socket();
+      this.check_plug_collision();
       this.update_plug_element_position();
       this.update_cord();
     }
@@ -176,6 +182,30 @@
       this.play_area_ceil = $('#boundry_box').offset().top;
       this.play_area_wall_left = $('#socket_div').offset().left + $('#socket_div').outerWidth()/2;
       this.play_area_wall_right = $('#boundry_box').offset().left + $('#boundry_box').outerWidth(true);
+    }
+
+    // check if the plug is in the socket hitbox
+    this.check_if_touching_socket = function () {
+      this.update_socket_position();
+      var socket_hitbox_y_lower = (this.socket_hitbox_y) - this.socket_buffer;
+      var socket_hitbox_y_upper = (this.socket_hitbox_y) + this.socket_buffer;
+      var socket_hitbox_x = this.socket_hitbox_x + this.socket_buffer;
+
+      // if the plug is in range of the socket, set the plug position to equal the socket position, set is_plugged_in to true
+      if (this.plug_x <= socket_hitbox_x && this.plug_y >= socket_hitbox_y_lower && this.plug_y <= socket_hitbox_y_upper) {
+        this.is_plugged_in = true;
+        this.move_plug(this.socket_x, this.socket_y);
+      }
+    }
+
+    // check if the plug is colliding with any of the play area boundries
+    this.check_plug_collision = function () {
+      if (this.is_plugged_in == false) {
+        this.check_hit_floor();
+        this.check_hit_ceil();
+        this.check_hit_wall_left();
+        this.check_hit_wall_right();
+      }
     }
 
     // function to prevent plug from exceeding its upper Y boundry
@@ -253,6 +283,15 @@
       this.cord_shadow_element.attr("y2", this.get_play_area_height());
     }
 
+    // update socket and its hitboxes x and y values
+    this.update_socket_position = function () {
+      this.socket_hitbox_x = this.play_area_wall_left;
+      this.socket_hitbox_y = this.get_play_area_center_y() - this.socket_offset_from_center_y;
+
+      this.socket_x = this.play_area_wall_left - this.socket_offset_from_wall_left_x;
+      this.socket_y = this.get_play_area_center_y() - this.socket_offset_from_center_y;
+    }
+
     //getters and setters
     this.set_is_holding = function (bool) {
       this.is_holding = bool;
@@ -268,6 +307,10 @@
 
     this.get_is_hovering = function () {
       return this.is_hovering;
+    }
+
+    this.get_is_plugged_in = function () {
+      return this.is_plugged_in;
     }
 
     this.get_play_area_floor = function () {
@@ -306,7 +349,7 @@
 
   // when the mouse moves
   window.addEventListener('mousemove', (event) => {
-    if (plug.get_is_holding()) {
+    if (plug.get_is_holding() && !plug.get_is_plugged_in()) {
       plug.move_plug(event.clientX, event.clientY);
     }
   });
