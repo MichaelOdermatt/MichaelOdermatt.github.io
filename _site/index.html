@@ -270,6 +270,10 @@
       return this.is_hovering;
     }
 
+    this.get_play_area_floor = function () {
+      return this.play_area_floor;
+    }
+
     this.get_play_area_center_x = function () {
       return (this.play_area_wall_left + this.play_area_wall_right)/2;
     }
@@ -279,7 +283,7 @@
     }
 
     this.get_play_area_height = function () {
-      return this.play_area_floor - this.play_area_ceil
+      return this.play_area_floor - this.play_area_ceil;
     }
   }
 
@@ -288,7 +292,7 @@
 
   // update the boundries of where the plug can exist
   plug.update_play_area();
-  plug.move_plug(plug.get_play_area_center_x(), plug.get_play_area_center_y());
+  plug.move_plug(plug.get_play_area_center_x(), plug.get_play_area_floor());
 
   // when the mosue cursor is over the plug
   plug.plug_element.mouseover( function() {
