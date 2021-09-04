@@ -92,13 +92,13 @@ layout: default
     this.socket_buffer = 5;
     this.socket_hitbox_x = 0;
     this.socket_hitbox_y = 0;
-    this.socket_x = 0;
-    this.socket_y = 0;
+    this.socket_x = 150;
+    this.socket_y = 228;
 
     // function to encapsulate all plug movement logic
     this.move_plug = function (new_x, new_y) {
       this.update_plug_position(new_x, new_y)
-      this.check_if_touching_socket();
+      //this.check_if_touching_socket();
       this.check_plug_collision();
       this.update_plug_element_position();
       this.update_cord();
@@ -170,6 +170,20 @@ layout: default
         this.check_hit_ceil();
         this.check_hit_wall_left();
         this.check_hit_wall_right();
+
+        var socket_hitbox_y_lower = (this.socket_y) - this.socket_buffer;
+        var socket_hitbox_y_upper = (this.socket_y) + this.socket_buffer;
+
+        if (this.plug_y <= socket_hitbox_y_upper && this.plug_y >= socket_hitbox_y_lower && this.plug_x == this.play_area_wall_left) {
+          this.is_plugged_in = true;
+        }
+      } else {
+        this.plug_y = this.socket_y;
+        this.check_hit_socket();
+        this.check_hit_wall_right();
+        if (this.plug_y == this.socket_y && this.plug_x >= this.play_area_wall_left + 1) {
+          this.is_plugged_in = false;
+        }
       }
     }
 
@@ -187,6 +201,13 @@ layout: default
     // function to prevent plug from exceeding its lower X boundry
     this.check_hit_wall_left = function() {
       this.plug_x = this.constrain_lower(this.plug_x, this.play_area_wall_left)
+      
+    }
+
+    // function to prevent plug from exceeding its lower X boundry
+    this.check_hit_socket = function() {
+      this.plug_x = this.constrain_lower(this.plug_x, this.play_area_wall_left - 43)
+      
     }
 
     // function to prevent plug from exceeding its lower X boundry
@@ -314,7 +335,7 @@ layout: default
 
   // when the mouse moves
   window.addEventListener('mousemove', (event) => {
-    if (plug.get_is_holding() && !plug.get_is_plugged_in()) {
+    if (plug.get_is_holding()) {
       plug.move_plug(event.clientX, event.clientY);
     }
   });
