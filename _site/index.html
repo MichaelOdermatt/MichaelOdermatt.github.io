@@ -78,8 +78,8 @@
 
     <div class="vertical-2-3-center">
       <svg id="plug" class='position-absolute' width="87" height="49" viewBox="0 0 87 49" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect y="14" width="29" height="8" rx="3" fill="#C4C4C4"/>
-        <rect y="34" x="10" width="29" height="6" rx="3" fill="#C4C4C4"/>
+        <rect id="large_prong_male" y="14" width="29" height="8" rx="3" fill="#C4C4C4"/>
+        <rect id="small_prong_male" y="34" x="9" width="29" height="6" rx="3" fill="#C4C4C4"/>
         <rect x="37" width="20" height="49" fill="#D6CDC0"/>
         <ellipse rx="19" ry="24.5" transform="matrix(-1 0 0 1 36 24.5)" fill="#D6CDC0"/>
         <rect width="30" height="49" rx="5" transform="matrix(-1 0 0 1 75 0)" fill="#F4F4EE"/>
@@ -127,6 +127,7 @@
     this.socket_x = 0;
     this.socket_y = 0;
     this.cord_svg_border_size = 5;
+    this.small_prong_female_x_offset = 9;
 
     // function to encapsulate all plug movement logic
     this.move_plug = function (new_x, new_y) {
@@ -199,6 +200,7 @@
         this.plug_y = this.socket_y;
         this.check_hit_end_of_socket();
         this.check_hit_wall_right();
+        this.shift_prongs();
         this.is_plugged_in = this.has_plug_exited_socket();
       }
     }
@@ -303,6 +305,27 @@
       this.cord_shadow_element.attr("x2", cord_end_x);
       this.cord_shadow_element.attr("y1", this.get_play_area_height());
       this.cord_shadow_element.attr("y2", this.get_play_area_height());
+    }
+
+    // function to handle the shifting prongs
+    this.shift_prongs = function () {
+      var female_large_prong_x = this.play_area_wall_left;
+      var small_prong_female_x = this.play_area_wall_left - this.small_prong_female_x_offset;
+
+      var male_large_prong_x = this.plug_x;
+      var small_prong_male_x = this.plug_x - this.small_prong_female_x_offset;
+
+      // if the male prongs have moved past the female prongs
+      if (female_large_prong_x >= male_large_prong_x) {
+        var offset_large = female_large_prong_x - male_large_prong_x;
+        var offset_small = small_prong_female_x - small_prong_male_x;
+
+        $("#large_prong_male").attr("x", offset_large);
+        $("#small_prong_male").attr("x", offset_small + this.small_prong_female_x_offset);
+      } else {
+        $("#large_prong_male").attr("x", 0);
+        $("#small_prong_male").attr("x", this.small_prong_female_x_offset);
+      }
     }
 
     // update socket and its hitboxes x and y values
