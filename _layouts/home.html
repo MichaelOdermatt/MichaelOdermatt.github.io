@@ -3,62 +3,69 @@ layout: default
 ---
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
-<div class="wrapper h-25" id="boundry_box">
-  <div class="d-flex flex-justify-around">
-    <div id="socket_div" class="vertical-2-3-center">
-      <svg width="137" height="230" viewBox="0 0 137 230" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect y="10" width="127.397" height="220" rx="15" fill="#9A9286"/>
-        <rect width="127.397" height="220" rx="15" fill="#D6CDC0"/>
-        <rect x="9.60281" width="127.397" height="220" rx="15" fill="#F4F4EE"/>
-        <rect width="31.9" height="49" rx="5" transform="matrix(-1 0 0 1 94.0767 87)" fill="#9A9286"/>
-        <ellipse rx="16.9167" ry="24.5" transform="matrix(-1 0 0 1 88.0833 111.5)" fill="#9A9286"/>
-        <ellipse rx="18.3667" ry="24.5" transform="matrix(-1 0 0 1 65.3667 111.5)" fill="#9A9286"/>
-        <path d="M49.4167 111.5C49.4167 125.031 59.0897 136 69.2333 136C79.377 136 87.6 125.031 87.6 111.5C87.6 97.969 79.377 87 69.2333 87C59.0897 87 49.4167 97.969 49.4167 111.5Z" fill="#9A9286"/>
-        <rect x="69.2333" y="88" width="19.3333" height="47" fill="#9A9286"/>
-        <path d="M83.1533 127H76.7733V123.19C76.7733 121.428 78.2015 120 79.9633 120C81.7251 120 83.1533 121.428 83.1533 123.19V127Z" fill="#9A9286"/>
-        <rect x="85.6667" y="98" width="3.86667" height="14" fill="#9A9286"/>
-        <rect x="68.2667" y="96" width="3.86667" height="18" fill="#9A9286"/>
-        <rect width="33" height="49" rx="5" transform="matrix(-1 0 0 1 95.7 84)" fill="#FFFFFA"/>
-        <ellipse rx="17.5" ry="24.5" transform="matrix(-1 0 0 1 89.5 108.5)" fill="#FFFFFA"/>
-        <ellipse rx="19" ry="24.5" transform="matrix(-1 0 0 1 66 108.5)" fill="#D6CDC0"/>
-        <path d="M49.5 108.5C49.5 122.031 59.5066 133 70 133C80.4934 133 89 122.031 89 108.5C89 94.969 80.4934 84 70 84C59.5066 84 49.5 94.969 49.5 108.5Z" fill="#FFFFFA"/>
-        <rect x="70" y="85" width="20" height="47" fill="#FFFFFA"/>
-        <path d="M83.4 124H76.8V120.3C76.8 118.477 78.2774 117 80.1 117C81.9225 117 83.4 118.477 83.4 120.3V124Z" fill="#9C9386"/>
-        <rect x="86" y="95" width="4" height="14" fill="#9C9386"/>
-        <rect x="68" y="93" width="4" height="18" fill="#9C9386"/>
-        <ellipse cx="77" cy="202.5" rx="7.5" ry="7" transform="rotate(-90 77 202.5)" fill="#9A9286"/>
-        <rect x="70" y="203" width="5" height="14" rx="1" transform="rotate(-90 70 203)" fill="#9A9286"/>
-        <ellipse cx="76.4171" cy="199" rx="6.41711" ry="8" fill="#D6CDC0"/>
-        <rect x="75.4144" y="191" width="4.33155" height="16" rx="1" fill="#D6CDC0"/>
-        <ellipse cx="78.5829" cy="199" rx="6.41711" ry="8" fill="#FFFFFA"/>
-        <rect x="74" y="198" width="10" height="2" fill="#D6CDC0"/>
-        <ellipse cx="77" cy="21.5" rx="7.5" ry="7" transform="rotate(-90 77 21.5)" fill="#9A9286"/>
-        <rect x="70" y="22" width="5" height="14" rx="1" transform="rotate(-90 70 22)" fill="#9A9286"/>
-        <ellipse cx="76.4171" cy="18" rx="6.41711" ry="8" fill="#D6CDC0"/>
-        <rect x="75.4144" y="10" width="4.33155" height="16" rx="1" fill="#D6CDC0"/>
-        <ellipse cx="78.5829" cy="18" rx="6.41711" ry="8" fill="#FFFFFA"/>
-        <rect x="74" y="17" width="10" height="2" fill="#D6CDC0"/>
-      </svg>
-    </div>
+<div class="wrapper">
+  <div class="wrapper h-25" id="boundry_box">
+    <div class="d-flex flex-justify-around">
+      <div id="socket_div" class="vertical-2-3-center">
+        <svg width="137" height="230" viewBox="0 0 137 230" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect y="10" width="127.397" height="220" rx="15" fill="#9A9286"/>
+          <rect width="127.397" height="220" rx="15" fill="#D6CDC0"/>
+          <rect x="9.60281" width="127.397" height="220" rx="15" fill="#F4F4EE"/>
+          <rect width="31.9" height="49" rx="5" transform="matrix(-1 0 0 1 94.0767 87)" fill="#9A9286"/>
+          <ellipse rx="16.9167" ry="24.5" transform="matrix(-1 0 0 1 88.0833 111.5)" fill="#9A9286"/>
+          <ellipse rx="18.3667" ry="24.5" transform="matrix(-1 0 0 1 65.3667 111.5)" fill="#9A9286"/>
+          <path d="M49.4167 111.5C49.4167 125.031 59.0897 136 69.2333 136C79.377 136 87.6 125.031 87.6 111.5C87.6 97.969 79.377 87 69.2333 87C59.0897 87 49.4167 97.969 49.4167 111.5Z" fill="#9A9286"/>
+          <rect x="69.2333" y="88" width="19.3333" height="47" fill="#9A9286"/>
+          <path d="M83.1533 127H76.7733V123.19C76.7733 121.428 78.2015 120 79.9633 120C81.7251 120 83.1533 121.428 83.1533 123.19V127Z" fill="#9A9286"/>
+          <rect x="85.6667" y="98" width="3.86667" height="14" fill="#9A9286"/>
+          <rect x="68.2667" y="96" width="3.86667" height="18" fill="#9A9286"/>
+          <rect width="33" height="49" rx="5" transform="matrix(-1 0 0 1 95.7 84)" fill="#FFFFFA"/>
+          <ellipse rx="17.5" ry="24.5" transform="matrix(-1 0 0 1 89.5 108.5)" fill="#FFFFFA"/>
+          <ellipse rx="19" ry="24.5" transform="matrix(-1 0 0 1 66 108.5)" fill="#D6CDC0"/>
+          <path d="M49.5 108.5C49.5 122.031 59.5066 133 70 133C80.4934 133 89 122.031 89 108.5C89 94.969 80.4934 84 70 84C59.5066 84 49.5 94.969 49.5 108.5Z" fill="#FFFFFA"/>
+          <rect x="70" y="85" width="20" height="47" fill="#FFFFFA"/>
+          <path d="M83.4 124H76.8V120.3C76.8 118.477 78.2774 117 80.1 117C81.9225 117 83.4 118.477 83.4 120.3V124Z" fill="#9C9386"/>
+          <rect x="86" y="95" width="4" height="14" fill="#9C9386"/>
+          <rect x="68" y="93" width="4" height="18" fill="#9C9386"/>
+          <ellipse cx="77" cy="202.5" rx="7.5" ry="7" transform="rotate(-90 77 202.5)" fill="#9A9286"/>
+          <rect x="70" y="203" width="5" height="14" rx="1" transform="rotate(-90 70 203)" fill="#9A9286"/>
+          <ellipse cx="76.4171" cy="199" rx="6.41711" ry="8" fill="#D6CDC0"/>
+          <rect x="75.4144" y="191" width="4.33155" height="16" rx="1" fill="#D6CDC0"/>
+          <ellipse cx="78.5829" cy="199" rx="6.41711" ry="8" fill="#FFFFFA"/>
+          <rect x="74" y="198" width="10" height="2" fill="#D6CDC0"/>
+          <ellipse cx="77" cy="21.5" rx="7.5" ry="7" transform="rotate(-90 77 21.5)" fill="#9A9286"/>
+          <rect x="70" y="22" width="5" height="14" rx="1" transform="rotate(-90 70 22)" fill="#9A9286"/>
+          <ellipse cx="76.4171" cy="18" rx="6.41711" ry="8" fill="#D6CDC0"/>
+          <rect x="75.4144" y="10" width="4.33155" height="16" rx="1" fill="#D6CDC0"/>
+          <ellipse cx="78.5829" cy="18" rx="6.41711" ry="8" fill="#FFFFFA"/>
+          <rect x="74" y="17" width="10" height="2" fill="#D6CDC0"/>
+        </svg>
+      </div>
 
-    <div class="vertical-2-3-center">
-      <svg id="plug" class='position-absolute' width="87" height="49" viewBox="0 0 87 49" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect id="large_prong_male" y="14" width="29" height="8" rx="3" fill="#C4C4C4"/>
-        <rect id="small_prong_male" y="34" x="9" width="29" height="6" rx="3" fill="#C4C4C4"/>
-        <rect x="37" width="20" height="49" fill="#D6CDC0"/>
-        <ellipse rx="19" ry="24.5" transform="matrix(-1 0 0 1 36 24.5)" fill="#D6CDC0"/>
-        <rect width="30" height="49" rx="5" transform="matrix(-1 0 0 1 75 0)" fill="#F4F4EE"/>
-        <ellipse rx="17.5" ry="24.5" transform="matrix(-1 0 0 1 69 24.5)" fill="#F4F4EE"/>
-        <path d="M29 24.5C29 38.031 39.0066 49 49.5 49C59.9934 49 68.5 38.031 68.5 24.5C68.5 10.969 59.9934 0 49.5 0C39.0066 0 29 10.969 29 24.5Z" fill="#F4F4EE"/>
-      </svg>
-    </div>
-    <div class="vertical-2-3-center">
-      <svg id="cord_svg" class="position-absolute pointer-events-none">
-        <path id="cord" d="M0 0" stroke="#D6CDC0" stroke-width="4" stroke-linecap="round" fill="transparent"></path>
-        <line x1="0" y1="0" x2="0" y2="0" id="cord_shadow" stroke="#9A9286" stroke-width="5" stroke-linecap="round" fill="transparent"></line>
-      </svg>
+      <div class="vertical-2-3-center">
+        <svg id="plug" class='position-absolute' width="87" height="49" viewBox="0 0 87 49" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect id="large_prong_male" y="14" width="29" height="8" rx="3" fill="#C4C4C4"/>
+          <rect id="small_prong_male" y="34" x="9" width="29" height="6" rx="3" fill="#C4C4C4"/>
+          <rect x="37" width="20" height="49" fill="#D6CDC0"/>
+          <ellipse rx="19" ry="24.5" transform="matrix(-1 0 0 1 36 24.5)" fill="#D6CDC0"/>
+          <rect width="30" height="49" rx="5" transform="matrix(-1 0 0 1 75 0)" fill="#F4F4EE"/>
+          <ellipse rx="17.5" ry="24.5" transform="matrix(-1 0 0 1 69 24.5)" fill="#F4F4EE"/>
+          <path d="M29 24.5C29 38.031 39.0066 49 49.5 49C59.9934 49 68.5 38.031 68.5 24.5C68.5 10.969 59.9934 0 49.5 0C39.0066 0 29 10.969 29 24.5Z" fill="#F4F4EE"/>
+        </svg>
+      </div>
+      <div class="vertical-2-3-center">
+        <svg id="cord_svg" class="position-absolute pointer-events-none">
+          <path id="cord" d="M0 0" stroke="#D6CDC0" stroke-width="4" stroke-linecap="round" fill="transparent"></path>
+          <line x1="0" y1="0" x2="0" y2="0" id="cord_shadow" stroke="#9A9286" stroke-width="5" stroke-linecap="round" fill="transparent"></line>
+        </svg>
+      </div>
     </div>
   </div>
+</div>
+<div id="homepage-title" class="d-flex flex-justify-center font-times-new-roman visibility-none noselect">
+  <h1 class="text-color-brown font-size-100 margin-top-lg">
+    Michael Odermatt
+  </h1>
 </div>
 
 <script>
@@ -230,10 +237,14 @@ layout: default
       if (value == constraint && this.has_sound_click_played == false) {
         this.sound_click.play();
         this.has_sound_click_played = true;
+        $("#homepage-title").removeClass("visibility-none");
+        $("#homepage-title").addClass("visibility-visible");
       }
 
       if (value != constraint && this.has_sound_click_played == true) {
         this.has_sound_click_played = false;
+        $("#homepage-title").removeClass("visibility-visible");
+        $("#homepage-title").addClass("visibility-none");
       }
     }
 

@@ -27,6 +27,26 @@
 /* Set the height to 100% */
 .height-full { height: 100% !important; }
 
+.margin-top-lg { margin-top: 1.5em; }
+
+.font-size-100 {font-size: 100px;}
+
 .pointer-events-none {pointer-events: none;}
 
-.z-index-99 {z-index: 99;}
+.text-color-brown {color: #3D2E19}
+
+.font-times-new-roman {font-family: 'Times New Roman', serif;}
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+
+.visibility-none {visibility: hidden;}
+
+.visibility-visible {visibility: visible;}
