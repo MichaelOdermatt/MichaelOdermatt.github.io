@@ -82,7 +82,6 @@ layout: default
     this.play_area_ceil = play_area_ceil;
     this.play_area_wall_left = play_area_wall_left;
     this.play_area_wall_right = play_area_wall_right;
-    this.gravity = 0.1;
     this.plug_element = $("#" + plug_element);
     this.cord_element = $("#" + cord_element_id)
     this.cord_svg = $("#" + cord_svg_id)
@@ -90,8 +89,6 @@ layout: default
     this.socket_offset_from_center_y = 32;
     this.socket_offset_from_wall_left_x = 0;
     this.socket_hitbox_size = 5;
-    this.socket_hitbox_x = 0;
-    this.socket_hitbox_y = 0;
     this.socket_x = 0;
     this.socket_y = 0;
     this.cord_svg_border_size = 5;
@@ -99,7 +96,6 @@ layout: default
     // function to encapsulate all plug movement logic
     this.move_plug = function (new_x, new_y) {
       this.update_plug_position(new_x, new_y)
-      //this.check_if_touching_socket();
       this.check_plug_collision();
       this.update_plug_element_position();
       this.update_cord();
@@ -150,42 +146,25 @@ layout: default
       this.play_area_wall_right = $('#boundry_box').offset().left + $('#boundry_box').outerWidth(true);
     }
 
-    // check if the plug is in the socket hitbox
-    this.check_if_touching_socket = function () {
-      this.update_socket_position();
-      var socket_hitbox_y_lower = (this.socket_hitbox_y) - this.socket_hitbox_size;
-      var socket_hitbox_y_upper = (this.socket_hitbox_y) + this.socket_hitbox_size;
-      var socket_hitbox_x_right = this.socket_hitbox_x + this.socket_hitbox_size;
-
-      // if the plug is in range of the socket, set the plug position to equal the socket position, set is_plugged_in to true
-      if (this.plug_x <= socket_hitbox_x_right && this.plug_y >= socket_hitbox_y_lower && this.plug_y <= socket_hitbox_y_upper) {
-        this.is_plugged_in = true;
-        this.move_plug(this.socket_x, this.socket_y);
-      }
-    }
-
     // check if the plug is colliding with any of the play area boundries
     this.check_plug_collision = function () {
       if (this.is_plugged_in == false) {
+
+        // check collision with play area walls
         this.check_hit_floor();
         this.check_hit_ceil();
         this.check_hit_wall_left();
         this.check_hit_wall_right();
 
-        var socket_hitbox_y_lower = (this.socket_y) - this.socket_hitbox_size;
-        var socket_hitbox_y_upper = (this.socket_y) + this.socket_hitbox_size;
+        this.is_plugged_in = this.has_plug_hit_socket();
 
-        if (this.plug_y <= socket_hitbox_y_upper && this.plug_y >= socket_hitbox_y_lower && this.plug_x == this.play_area_wall_left) {
-          this.is_plugged_in = true;
-        }
       } else {
+
+        // if the socket is plugged in, lock its y value and change the left and right boundries
         this.plug_y = this.socket_y;
-        this.check_hit_socket();
+        this.check_hit_end_of_socket();
         this.check_hit_wall_right();
-        // checks if the plug is pulled out far enough (if plug_x exceeds the left wall by 1 or more units)
-        if (this.plug_y == this.socket_y && this.plug_x >= this.play_area_wall_left + 1) {
-          this.is_plugged_in = false;
-        }
+        this.is_plugged_in = this.has_plug_exited_socket();
       }
     }
 
@@ -206,13 +185,33 @@ layout: default
       
     }
 
-    // function to prevent plug from exceeding its lower X boundry
-    this.check_hit_socket = function() {
-      this.plug_x = this.constrain_lower(this.plug_x, this.play_area_wall_left - 36)
-      
+    // check if you have collided with the socket hitbox
+    this.has_plug_hit_socket = function() {
+      var socket_hitbox_y_lower = (this.socket_y) - this.socket_hitbox_size;
+      var socket_hitbox_y_upper = (this.socket_y) + this.socket_hitbox_size;
+
+      if (this.plug_y <= socket_hitbox_y_upper && this.plug_y >= socket_hitbox_y_lower && this.plug_x == this.play_area_wall_left) {
+        return true;
+      } else {
+        return false;
+      }
     }
 
-    // function to prevent plug from exceeding its lower X boundry
+    // checks if the plug is pulled out far enough (if plug_x exceeds the left wall by 1 or more units)
+    this.has_plug_exited_socket = function() {
+      if (this.plug_y == this.socket_y && this.plug_x >= this.play_area_wall_left + 1) {
+        return false;
+      } else {
+        return true;
+      }
+    }
+
+    // function to prevent plug from exceeding its lower X socket boundry
+    this.check_hit_end_of_socket = function() {
+      this.plug_x = this.constrain_lower(this.plug_x, this.play_area_wall_left - 36)
+    }
+
+    // function to prevent plug from exceeding its upper X boundry
     this.check_hit_wall_right = function () {
       var boundry = this.play_area_wall_right - this.plug_element.attr("width");
       this.plug_x = this.constrain_upper(this.plug_x, boundry)
@@ -273,9 +272,6 @@ layout: default
 
     // update socket and its hitboxes x and y values
     this.update_socket_position = function () {
-      this.socket_hitbox_x = this.play_area_wall_left;
-      this.socket_hitbox_y = this.get_play_area_center_y() - this.socket_offset_from_center_y;
-
       this.socket_x = this.play_area_wall_left - this.socket_offset_from_wall_left_x;
       this.socket_y = this.get_play_area_center_y() - this.socket_offset_from_center_y;
     }
