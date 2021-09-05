@@ -28,3 +28,5 @@
 .height-full { height: 100% !important; }
 
 .pointer-events-none {pointer-events: none;}
+
+.z-index-99 {z-index: 99;}

@@ -44,7 +44,7 @@ layout: default
     <div class="vertical-2-3-center">
       <svg id="plug" class='position-absolute' width="87" height="49" viewBox="0 0 87 49" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect y="14" width="29" height="8" rx="3" fill="#C4C4C4"/>
-        <path d="M6 36.5C6 34.567 7.567 33 9.5 33H31.5C33.433 33 35 34.567 35 36.5C35 38.433 33.433 40 31.5 40H9.5C7.567 40 6 38.433 6 36.5Z" fill="#C4C4C4"/>
+        <rect y="34" x="10" width="29" height="6" rx="3" fill="#C4C4C4"/>
         <rect x="37" width="20" height="49" fill="#D6CDC0"/>
         <ellipse rx="19" ry="24.5" transform="matrix(-1 0 0 1 36 24.5)" fill="#D6CDC0"/>
         <rect width="30" height="49" rx="5" transform="matrix(-1 0 0 1 75 0)" fill="#F4F4EE"/>
@@ -87,13 +87,14 @@ layout: default
     this.cord_element = $("#" + cord_element_id)
     this.cord_svg = $("#" + cord_svg_id)
     this.cord_shadow_element = $("#" + cord_shadow_id)
-    this.socket_offset_from_center_y = 5;
+    this.socket_offset_from_center_y = 32;
     this.socket_offset_from_wall_left_x = 0;
-    this.socket_buffer = 5;
+    this.socket_hitbox_size = 5;
     this.socket_hitbox_x = 0;
     this.socket_hitbox_y = 0;
-    this.socket_x = 150;
-    this.socket_y = 228;
+    this.socket_x = 0;
+    this.socket_y = 0;
+    this.cord_svg_border_size = 5;
 
     // function to encapsulate all plug movement logic
     this.move_plug = function (new_x, new_y) {
@@ -122,8 +123,8 @@ layout: default
       this.cord_svg.css({left: this.play_area_wall_left, top: this.play_area_ceil});
 
       // resize the svg element to match the bounding box
-      this.cord_svg.attr('width', this.play_area_wall_right + "px");
-      this.cord_svg.attr('height', this.play_area_floor + "px");
+      this.cord_svg.attr('width', this.play_area_wall_right - this.play_area_wall_left + this.cord_svg_border_size + "px");
+      this.cord_svg.attr('height', this.play_area_floor - this.play_area_ceil + this.cord_svg_border_size + "px");
 
       // calculate the end point and start point coordinates
       var cord_end_x = this.play_area_wall_right - this.play_area_wall_left;
@@ -152,12 +153,12 @@ layout: default
     // check if the plug is in the socket hitbox
     this.check_if_touching_socket = function () {
       this.update_socket_position();
-      var socket_hitbox_y_lower = (this.socket_hitbox_y) - this.socket_buffer;
-      var socket_hitbox_y_upper = (this.socket_hitbox_y) + this.socket_buffer;
-      var socket_hitbox_x = this.socket_hitbox_x + this.socket_buffer;
+      var socket_hitbox_y_lower = (this.socket_hitbox_y) - this.socket_hitbox_size;
+      var socket_hitbox_y_upper = (this.socket_hitbox_y) + this.socket_hitbox_size;
+      var socket_hitbox_x_right = this.socket_hitbox_x + this.socket_hitbox_size;
 
       // if the plug is in range of the socket, set the plug position to equal the socket position, set is_plugged_in to true
-      if (this.plug_x <= socket_hitbox_x && this.plug_y >= socket_hitbox_y_lower && this.plug_y <= socket_hitbox_y_upper) {
+      if (this.plug_x <= socket_hitbox_x_right && this.plug_y >= socket_hitbox_y_lower && this.plug_y <= socket_hitbox_y_upper) {
         this.is_plugged_in = true;
         this.move_plug(this.socket_x, this.socket_y);
       }
@@ -171,8 +172,8 @@ layout: default
         this.check_hit_wall_left();
         this.check_hit_wall_right();
 
-        var socket_hitbox_y_lower = (this.socket_y) - this.socket_buffer;
-        var socket_hitbox_y_upper = (this.socket_y) + this.socket_buffer;
+        var socket_hitbox_y_lower = (this.socket_y) - this.socket_hitbox_size;
+        var socket_hitbox_y_upper = (this.socket_y) + this.socket_hitbox_size;
 
         if (this.plug_y <= socket_hitbox_y_upper && this.plug_y >= socket_hitbox_y_lower && this.plug_x == this.play_area_wall_left) {
           this.is_plugged_in = true;
@@ -181,6 +182,7 @@ layout: default
         this.plug_y = this.socket_y;
         this.check_hit_socket();
         this.check_hit_wall_right();
+        // checks if the plug is pulled out far enough (if plug_x exceeds the left wall by 1 or more units)
         if (this.plug_y == this.socket_y && this.plug_x >= this.play_area_wall_left + 1) {
           this.is_plugged_in = false;
         }
@@ -206,7 +208,7 @@ layout: default
 
     // function to prevent plug from exceeding its lower X boundry
     this.check_hit_socket = function() {
-      this.plug_x = this.constrain_lower(this.plug_x, this.play_area_wall_left - 43)
+      this.plug_x = this.constrain_lower(this.plug_x, this.play_area_wall_left - 36)
       
     }
 
@@ -321,6 +323,7 @@ layout: default
 
   // update the boundries of where the plug can exist
   plug.update_play_area();
+  plug.update_socket_position();
   plug.move_plug(plug.get_play_area_center_x(), plug.get_play_area_floor());
 
   // when the mosue cursor is over the plug
@@ -357,6 +360,7 @@ layout: default
   // on window resize, update the plug position and the bounding box where the plug can exist
   $( window ).resize(function() {
     plug.update_play_area();
+    plug.update_socket_position();
     plug.move_plug(plug.plug_x, plug.plug_y);
   });
 
