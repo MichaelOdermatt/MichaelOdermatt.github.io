@@ -50,3 +50,18 @@
 .visibility-none {visibility: hidden;}
 
 .visibility-visible {visibility: visible;}
+
+.cord-border {
+  border-radius: 25px;
+  border: 4px solid #9A9286;
+}
+
+.screen-off {
+  fill: #9A9286;
+  stroke: #9A9286;
+}
+
+.screen-on {
+  fill: white;
+  stroke: white;
+}
