@@ -84,12 +84,15 @@
   stroke: white;
 }
 
-.limited-max-width-centered {max-width: calc(1200px - (30px * 2));
+.limited-max-size-centered {max-width: calc(1200px - (30px * 2));
+  max-height: calc(1200px - (30px * 2));
   margin-right: auto;
   margin-left: auto;
   padding-right: 30px;
   padding-left: 30px;
 }
+
+.flex-shrink-0 {flex-shrink: 0;}
 
 .cursor-pointer {cursor: pointer;}
 
