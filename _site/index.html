@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en"><head>
+<html lang="en">
+<link rel="stylesheet" href="CSS/common.css"><head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
@@ -18,9 +19,9 @@
 {"@type":"WebSite","name":"Michael Odermatt","url":"http://localhost:4000/","headline":"Michael Odermatt","description":"CS Student at The University of British Columbia","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Michael Odermatt" /></head>
-<body><header class="site-header" role="banner">
+<body><!-- <header class="site-header" role="banner">
 
-  <div class="wrapper"><a class="site-title" rel="author" href="/">Michael Odermatt</a><nav class="site-nav">
+  <div class="wrapper"><nav class="site-nav">
         <input type="checkbox" id="nav-trigger" class="nav-trigger" />
         <label for="nav-trigger">
           <span class="menu-icon">
@@ -30,24 +31,538 @@
           </span>
         </label>
 
-        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+        <div class="trigger"><a class="page-link" rel="author" href="/">Home</a>
+            <a class="page-link" href="/about/">About</a></div>
       </nav></div>
-</header>
+</header> -->
 <main class="page-content" aria-label="Content">
-      <div class="wrapper">
-        <div class="home">
-<h2 class="post-list-heading">Posts</h2>
-    <ul class="post-list"><li><span class="post-meta">Jul 25, 2021</span>
-        <h3>
-          <a class="post-link" href="/jekyll/update/2021/07/25/welcome-to-jekyll.html">
-            Welcome to Jekyll!
-          </a>
-        </h3></li></ul>
-
-    <p class="rss-subscribe">subscribe <a href="/feed.xml">via RSS</a></p></div>
-
+        <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+<div class="limited-max-width-centered d-flex flex-justify-center">
+  <svg id="monitor" width="1596" height="909" viewBox="0 0 1596 1109" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="874.5" cy="847.5" rx="717.5" ry="202.5" fill="#9A9286"/>
+    <path d="M1513.49 327.848L1501.04 329.055L1530.58 638.65L1543.52 637.395C1561.78 521.711 1557.68 454.362 1513.49 327.848Z" fill="#D6CDC0" stroke="#D6CDC0"/>
+    <path d="M1531.13 639.099C1547.9 525.776 1544.76 458.827 1501.04 329.055C1483.7 348.428 1479.91 360.016 1477.71 378.54C1461.98 374.163 1454.6 375.96 1442.38 381.968L1463.77 602.433L1499.1 599.004C1506.35 620.26 1513.49 628.89 1531.13 639.099Z" fill="#F4F4EE" stroke="#F4F4EE"/>
+    <path d="M1498.66 599.55C1507.78 510.104 1505.3 461.339 1478.21 378.491C1469.62 348.121 1448.83 337.623 1412.62 318.546L1447.85 635.122C1468.25 632.018 1479.65 629.573 1498.66 599.55Z" fill="#D6CDC0" stroke="#D6CDC0"/>
+    <path d="M971.186 333.438C969.547 337.245 969.812 341.636 971.917 345.206L1110.46 580.113C1113.03 584.465 1117.89 586.936 1122.92 586.448L1348.29 564.581C1353.32 564.093 1357.61 560.735 1359.3 555.97L1450.18 298.573C1451.52 294.798 1451.02 290.594 1448.86 287.226C1394.03 201.843 1356.02 153.635 1309.56 52.2818C1307.49 47.7705 1303.03 44.7675 1298.07 44.6241C1205.98 41.9629 1153.07 45.2556 1071.96 66.324C1067.27 67.543 1063.67 71.3304 1062.59 76.0572C1039.62 176.677 1013.65 234.763 971.186 333.438Z" fill="#D6CDC0"/>
+    <rect width="6.88889" height="82.988" rx="3" transform="matrix(0.995326 -0.0965711 -0.0965711 -0.995326 1103.45 199.512)" fill="#9A9286"/>
+    <rect width="6.88889" height="82.988" rx="3" transform="matrix(0.995326 -0.0965711 -0.0965711 -0.995326 1130.77 195.704)" fill="#9A9286"/>
+    <rect width="6.88889" height="58.7831" rx="3" transform="matrix(0.995326 -0.0965711 -0.0965711 -0.995326 1143.37 182.901)" fill="#9A9286"/>
+    <rect width="6.88889" height="58.7831" rx="3" transform="matrix(0.995326 -0.0965711 -0.0965711 -0.995326 1088.52 188.223)" fill="#9A9286"/>
+    <rect width="6.88889" height="109.498" rx="3" transform="matrix(0.995326 -0.0965711 -0.0965711 -0.995326 1118.5 211.948)" fill="#9A9286"/>
+    <path d="M935.236 176.825C926.73 177.2 920.196 184.592 920.848 193.081C929.277 302.802 929.349 368.559 940.628 473.07C941.507 481.208 948.792 487.126 956.939 486.335L1451.54 438.347C1459.56 437.569 1465.53 430.557 1465.03 422.51C1458.33 315.141 1449.57 249.36 1437.59 142.807C1436.65 134.397 1428.91 128.396 1420.53 129.578C1233.61 155.955 1122.45 168.571 935.236 176.825Z" fill="#D6CDC0"/>
+    <path d="M942.253 255.69C934.011 255.938 927.459 262.871 927.643 271.115C933.946 553.369 949.688 709.2 994.912 963.274C996.188 970.439 1002.5 975.727 1009.78 975.686C1195.9 974.634 1308.01 962.274 1500.62 927.964C1508.07 926.637 1513.4 919.855 1512.99 912.298C1498 639.583 1483.12 483.269 1446.04 221.133C1444.87 212.852 1437.1 207.062 1428.83 208.343C1240.02 237.606 1128.27 250.105 942.253 255.69Z" fill="#F4F4EE"/>
+    <path d="M1003.36 312.038C998.148 312.543 994.21 317.053 994.333 322.286C999.641 547.784 1012.84 677.229 1050.47 899.86C1051.27 904.617 1055.42 908.189 1060.24 908.244C1209.11 909.929 1294.71 901.202 1438.19 871.63C1443.19 870.6 1446.64 865.954 1446.15 860.876L1390.23 284.549C1389.7 279.052 1384.81 275.028 1379.31 275.561L1003.36 312.038Z" fill="#D6CDC0"/>
+    <path d="M1068.77 871.121C1034.94 668.341 1021.51 536.236 1015.07 311.404L1378.74 276.119C1384.28 275.581 1389.2 279.679 1389.67 285.231L1435.24 825.011C1435.64 829.77 1432.62 834.152 1428.02 835.453C1345.51 858.83 1273.01 874.197 1078.98 879.504C1074.01 879.64 1069.59 876.033 1068.77 871.121Z" fill="#9A9286" stroke="#9A9286"/>
+    <path d="M1482.29 908.91C1492.92 907.879 1500.81 899.616 1499.92 890.454C1499.03 881.293 1489.7 874.701 1479.07 875.733C1468.44 876.764 1460.55 885.027 1461.44 894.188C1462.32 903.35 1471.66 909.941 1482.29 908.91Z" fill="#9A9286"/>
+    <path d="M1491.42 861.473C1494.16 861.207 1496.18 858.762 1495.91 856.014C1495.64 853.265 1493.2 851.253 1490.45 851.52C1487.7 851.787 1485.69 854.231 1485.96 856.98C1486.22 859.728 1488.67 861.74 1491.42 861.473Z" fill="#9A8686"/>
+    <circle r="16.6667" transform="matrix(0.096571 0.995326 0.995326 -0.096571 1478.02 892.579)" fill="#D6CDC0"/>
+    <path d="M1480.28 915.803C1489.44 914.914 1496.15 906.766 1495.26 897.605C1494.37 888.443 1486.22 881.736 1477.06 882.625C1467.9 883.514 1461.19 891.662 1462.08 900.824C1462.97 909.985 1471.12 916.692 1480.28 915.803Z" fill="#F4F4EE"/>
+    <rect width="4" height="18.6667" transform="matrix(0.096571 0.995326 0.995326 -0.096571 1468.52 898.189)" fill="#D6CDC0"/>
+    <path d="M838.715 664.725L831.529 654.497L576.777 832.887L584.251 843.524C693.893 802.354 750.454 765.564 838.715 664.725Z" fill="#D6CDC0" stroke="#D6CDC0"/>
+    <path d="M576.655 833.583C683.511 792.285 740.201 756.532 831.529 654.497C806.122 648.965 794.173 651.383 776.975 658.608C773.02 642.759 767.817 637.226 756.565 629.562L575.331 756.905L595.741 785.952C580.825 802.741 576.839 813.207 576.655 833.583Z" fill="#F4F4EE" stroke="#F4F4EE"/>
+    <path d="M595.044 785.83C677.356 749.654 718.554 723.445 777.262 659.017C799.444 636.563 798.323 613.301 797.057 572.389L539.043 759.182C551.805 775.395 559.556 784.108 595.044 785.83Z" fill="#D6CDC0" stroke="#D6CDC0"/>
+    <path d="M566.383 195.73C562.263 196.182 558.573 198.578 556.506 202.17L420.492 438.553C417.972 442.933 418.218 448.376 421.123 452.511L551.303 637.781C554.208 641.915 559.246 643.992 564.22 643.105L832.96 595.218C836.901 594.516 840.314 592.012 842.177 588.47C889.412 498.664 912.602 441.822 977.853 351.414C980.757 347.39 981.17 342.029 978.848 337.643C935.744 256.222 906.78 211.813 848.451 151.651C845.076 148.17 840.005 146.905 835.361 148.298C736.504 177.946 673.166 184.005 566.383 195.73Z" fill="#D6CDC0"/>
+    <rect width="6.88889" height="82.988" rx="3" transform="matrix(0.574916 0.818213 0.818213 -0.574916 748.122 244.737)" fill="#9A9286"/>
+    <rect width="6.88889" height="82.988" rx="3" transform="matrix(0.574916 0.818213 0.818213 -0.574916 764.907 266.621)" fill="#9A9286"/>
+    <rect width="6.88889" height="58.7831" rx="3" transform="matrix(0.574916 0.818213 0.818213 -0.574916 782.259 271.267)" fill="#9A9286"/>
+    <rect width="6.88889" height="58.7831" rx="3" transform="matrix(0.574916 0.818213 0.818213 -0.574916 750.575 226.175)" fill="#9A9286"/>
+    <rect width="6.88889" height="109.498" rx="3" transform="matrix(0.574916 0.818213 0.818213 -0.574916 744.726 263.962)" fill="#9A9286"/>
+    <path d="M684.891 87.2131C680.369 79.9987 670.716 77.9608 663.653 82.7151C572.363 144.163 515.195 176.658 429.844 238.016C423.198 242.794 421.643 252.05 426.349 258.747L712.036 665.332C716.671 671.929 725.718 673.668 732.469 669.263C822.563 610.473 875.468 570.411 962.253 507.441C969.102 502.471 970.504 492.775 965.342 486.068C850.205 336.474 784.407 246.001 684.891 87.2131Z" fill="#D6CDC0"/>
+    <path d="M619.746 132.215C615.465 125.167 606.202 122.888 599.122 127.113C356.695 271.808 228.901 362.36 30.1854 527.013C24.5808 531.657 23.093 539.755 26.7186 546.066C119.435 707.461 185.478 798.885 310.321 949.514C315.15 955.341 323.682 956.638 330.051 952.55C559.895 805.004 688.537 714.966 898.283 553.422C904.909 548.319 906.11 538.698 900.92 532.141C782.338 382.322 716.352 291.28 619.746 132.215Z" fill="#F4F4EE"/>
+    <path d="M600.866 213.162C597.857 208.879 591.992 207.678 587.5 210.366C393.955 326.201 287.859 401.526 112.749 544.063C109.007 547.108 107.947 552.481 110.279 556.705C182.238 687.039 232.046 757.195 328.537 867.423C331.897 871.262 337.642 871.975 341.817 869.042L815.589 536.146C820.108 532.971 821.197 526.734 818.022 522.215L600.866 213.162Z" fill="#D6CDC0"/>
+    <path d="M146.776 545.811C306.49 416.365 414.789 339.533 607.194 223.037L817.253 521.99C820.457 526.549 819.316 532.847 814.718 535.993L367.634 841.861C363.692 844.558 358.391 844.092 354.993 840.737C293.959 780.484 244.836 724.999 144.522 558.831C141.949 554.569 142.908 548.946 146.776 545.811Z" fill="#9A9286" stroke="#9A9286"/>
+    <path d="M317.857 924.173C323.995 932.909 335.077 935.701 342.609 930.409C350.14 925.117 351.269 913.745 345.13 905.009C338.992 896.272 327.91 893.48 320.378 898.772C312.847 904.064 311.718 915.436 317.857 924.173Z" fill="#9A9286"/>
+    <path d="M363.624 908.717C365.212 910.977 368.331 911.521 370.59 909.934C372.849 908.346 373.394 905.227 371.806 902.968C370.219 900.709 367.1 900.164 364.841 901.752C362.581 903.339 362.037 906.458 363.624 908.717Z" fill="#9A8686"/>
+    <circle r="16.6667" transform="matrix(-0.818212 0.574916 0.574916 0.818212 329.96 912.409)" fill="#D6CDC0"/>
+    <path d="M310.869 925.823C316.161 933.355 326.556 935.17 334.088 929.878C341.619 924.586 343.434 914.191 338.143 906.659C332.851 899.128 322.455 897.312 314.924 902.604C307.392 907.896 305.577 918.292 310.869 925.823Z" fill="#F4F4EE"/>
+    <rect width="4" height="18.6667" transform="matrix(-0.818212 0.574916 0.574916 0.818212 320.393 906.909)" fill="#D6CDC0"/>
+    <path d="M793.466 946.002L799.161 934.874L522.53 792.759L516.608 804.332C604.171 882.107 663.099 914.975 793.466 946.002Z" fill="#D6CDC0" stroke="#D6CDC0"/>
+    <path d="M521.857 792.976C608.234 868.227 666.305 901.692 799.161 934.875C792.202 909.821 784.489 900.38 770.075 888.538C782.249 877.647 784.716 870.463 786.247 856.936L589.063 756.035L572.892 787.638C551.083 782.276 539.966 783.633 521.857 792.976Z" fill="#F4F4EE" stroke="#F4F4EE"/>
+    <path d="M572.674 786.965C643.071 842.896 685.472 867.11 769.847 888.983C800.056 898.128 820.109 886.286 855.706 866.081L570.121 725C561.734 743.851 557.642 754.771 572.674 786.965Z" fill="#D6CDC0" stroke="#D6CDC0"/>
+    <path d="M1081.26 486.334C1078.94 482.901 1075.1 480.755 1070.96 480.602L798.421 470.566C793.371 470.38 788.672 473.137 786.37 477.635L683.222 679.211C680.92 683.709 681.434 689.133 684.539 693.12L852.262 908.488C854.721 911.646 858.528 913.497 862.531 913.492C964.001 913.379 1025.1 907.374 1135.5 922.915C1140.42 923.607 1145.35 921.471 1148.15 917.371C1200.06 841.262 1225.83 794.927 1251.83 715.267C1253.34 710.658 1252.09 705.583 1248.69 702.125C1176.35 628.514 1141.45 575.317 1081.26 486.334Z" fill="#D6CDC0"/>
+    <rect width="6.88889" height="82.988" rx="3" transform="matrix(-0.455532 0.89022 0.89022 0.455532 1122.69 669.948)" fill="#9A9286"/>
+    <rect width="6.88889" height="82.988" rx="3" transform="matrix(-0.455532 0.89022 0.89022 0.455532 1111.17 695.004)" fill="#9A9286"/>
+    <rect width="6.88889" height="58.7831" rx="3" transform="matrix(-0.455532 0.89022 0.89022 0.455532 1115.15 712.52)" fill="#9A9286"/>
+    <rect width="6.88889" height="58.7831" rx="3" transform="matrix(-0.455532 0.89022 0.89022 0.455532 1140.26 663.458)" fill="#9A9286"/>
+    <rect width="6.88889" height="109.498" rx="3" transform="matrix(-0.455532 0.89022 0.89022 0.455532 1104.1 675.913)" fill="#9A9286"/>
+    <path d="M1232.53 540.534C1236.8 533.169 1234.1 523.68 1226.6 519.651C1129.66 467.568 1074.25 432.16 980.164 385.288C972.837 381.639 963.925 384.581 960.196 391.868L733.834 834.235C730.161 841.412 732.843 850.225 739.889 854.142C833.918 906.407 894.034 934.514 990.218 981.902C997.809 985.642 1007.04 982.359 1010.56 974.664C1089.17 803.038 1138.5 702.633 1232.53 540.534Z" fill="#D6CDC0"/>
+    <path d="M1162.34 503.905C1166.57 496.831 1164.27 487.574 1157.23 483.283C916.151 336.35 776.44 265.555 538.1 166.597C531.378 163.806 523.521 166.267 519.63 172.418C420.124 329.718 370.067 430.784 295.07 611.478C292.169 618.468 295.001 626.619 301.589 630.346C539.318 764.819 678.97 836.603 919.705 946.769C927.31 950.249 936.379 946.824 939.758 939.174C1016.96 764.395 1066.71 663.558 1162.34 503.905Z" fill="#F4F4EE"/>
+    <path d="M1081.93 524.967C1084.31 520.307 1082.64 514.559 1078.17 511.84C885.42 394.682 769.3 335.976 561.535 247.579C557.095 245.691 551.848 247.259 549.2 251.292C467.485 375.742 428.666 452.526 376.179 589.295C374.351 594.059 376.4 599.473 380.942 601.797L896.409 865.565C901.326 868.081 907.351 866.135 909.867 861.219L1081.93 524.967Z" fill="#D6CDC0"/>
+    <path id="monitor_screen" d="M575.862 278.493C764.866 359.378 883.347 419.329 1076.15 535.17L909.707 860.434C907.169 865.394 901.066 867.323 896.138 864.723L417.028 611.953C412.804 609.724 410.743 604.819 412.125 600.247C436.948 518.154 463.11 448.819 563.294 282.573C565.864 278.309 571.285 276.534 575.862 278.493Z" fill="#9A9286" stroke="#9A9286"/>
+    <path d="M321.001 606.322C316.137 615.827 318.837 626.932 327.031 631.125C335.225 635.318 345.811 631.012 350.675 621.506C355.539 612.001 352.839 600.896 344.645 596.703C336.45 592.51 325.865 596.817 321.001 606.322Z" fill="#9A9286"/>
+    <path id="monitor_power_button_light" d="M356.022 639.595C354.764 642.053 355.737 645.065 358.195 646.323C360.654 647.581 363.666 646.608 364.924 644.15C366.182 641.692 365.209 638.679 362.751 637.421C360.292 636.163 357.28 637.136 356.022 639.595Z" fill="#9A8686"/>
+    <circle r="16.6667" transform="matrix(-0.890219 -0.455532 -0.455532 0.890219 337.052 611.54)" fill="#D6CDC0"/>
+    <path d="M316.281 600.911C312.088 609.105 315.331 619.147 323.525 623.34C331.72 627.533 341.762 624.29 345.955 616.095C350.148 607.901 346.904 597.859 338.71 593.666C330.516 589.473 320.474 592.717 316.281 600.911Z" fill="#F4F4EE"/>
+    <rect width="4" height="18.6667" transform="matrix(-0.890219 -0.455532 -0.455532 0.890219 337.454 600.512)" fill="#D6CDC0"/>
+    <rect id="cord_meets_monitor" x="1124" y="874" width="26" height="29" fill="#D6CDC0"/>
+    <foreignObject id="screen_text" class="visibility-none" x="525" y="400" width="450" height="300">
+      <div class="title-brown noselect screen-text">
+        <br>
+        Michael Odermatt
+        <br>
+          <div class="font-size-35">
+            <i>
+            CS Student | Programmer
+            </i>
+          </div>
       </div>
-    </main><footer class="site-footer h-card">
+    </foreignObject>
+  </svg>
+</div>
+<div class="wrapper font-size-100 margin-top-lg">
+  <div class="wrapper h-25" id="boundry_box">
+    <div class="d-flex flex-justify-around">
+      <div id="socket_div" class="vertical-2-3-center">
+        <svg width="137" height="230" viewBox="0 0 137 230" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect y="10" width="127.397" height="220" rx="15" fill="#9A9286"/>
+          <rect width="127.397" height="220" rx="15" fill="#D6CDC0"/>
+          <rect x="9.60281" width="127.397" height="220" rx="15" fill="#F4F4EE"/>
+          <rect width="31.9" height="49" rx="5" transform="matrix(-1 0 0 1 94.0767 87)" fill="#9A9286"/>
+          <ellipse rx="16.9167" ry="24.5" transform="matrix(-1 0 0 1 88.0833 111.5)" fill="#9A9286"/>
+          <ellipse rx="18.3667" ry="24.5" transform="matrix(-1 0 0 1 65.3667 111.5)" fill="#9A9286"/>
+          <path d="M49.4167 111.5C49.4167 125.031 59.0897 136 69.2333 136C79.377 136 87.6 125.031 87.6 111.5C87.6 97.969 79.377 87 69.2333 87C59.0897 87 49.4167 97.969 49.4167 111.5Z" fill="#9A9286"/>
+          <rect x="69.2333" y="88" width="19.3333" height="47" fill="#9A9286"/>
+          <path d="M83.1533 127H76.7733V123.19C76.7733 121.428 78.2015 120 79.9633 120C81.7251 120 83.1533 121.428 83.1533 123.19V127Z" fill="#9A9286"/>
+          <rect x="85.6667" y="98" width="3.86667" height="14" fill="#9A9286"/>
+          <rect x="68.2667" y="96" width="3.86667" height="18" fill="#9A9286"/>
+          <rect width="33" height="49" rx="5" transform="matrix(-1 0 0 1 95.7 84)" fill="#FFFFFA"/>
+          <ellipse rx="17.5" ry="24.5" transform="matrix(-1 0 0 1 89.5 108.5)" fill="#FFFFFA"/>
+          <ellipse rx="19" ry="24.5" transform="matrix(-1 0 0 1 66 108.5)" fill="#D6CDC0"/>
+          <path d="M49.5 108.5C49.5 122.031 59.5066 133 70 133C80.4934 133 89 122.031 89 108.5C89 94.969 80.4934 84 70 84C59.5066 84 49.5 94.969 49.5 108.5Z" fill="#FFFFFA"/>
+          <rect x="70" y="85" width="20" height="47" fill="#FFFFFA"/>
+          <path d="M83.4 124H76.8V120.3C76.8 118.477 78.2774 117 80.1 117C81.9225 117 83.4 118.477 83.4 120.3V124Z" fill="#9C9386"/>
+          <rect x="86" y="95" width="4" height="14" fill="#9C9386"/>
+          <rect x="68" y="93" width="4" height="18" fill="#9C9386"/>
+          <ellipse cx="77" cy="202.5" rx="7.5" ry="7" transform="rotate(-90 77 202.5)" fill="#9A9286"/>
+          <rect x="70" y="203" width="5" height="14" rx="1" transform="rotate(-90 70 203)" fill="#9A9286"/>
+          <ellipse cx="76.4171" cy="199" rx="6.41711" ry="8" fill="#D6CDC0"/>
+          <rect x="75.4144" y="191" width="4.33155" height="16" rx="1" fill="#D6CDC0"/>
+          <ellipse cx="78.5829" cy="199" rx="6.41711" ry="8" fill="#FFFFFA"/>
+          <rect x="74" y="198" width="10" height="2" fill="#D6CDC0"/>
+          <ellipse cx="77" cy="21.5" rx="7.5" ry="7" transform="rotate(-90 77 21.5)" fill="#9A9286"/>
+          <rect x="70" y="22" width="5" height="14" rx="1" transform="rotate(-90 70 22)" fill="#9A9286"/>
+          <ellipse cx="76.4171" cy="18" rx="6.41711" ry="8" fill="#D6CDC0"/>
+          <rect x="75.4144" y="10" width="4.33155" height="16" rx="1" fill="#D6CDC0"/>
+          <ellipse cx="78.5829" cy="18" rx="6.41711" ry="8" fill="#FFFFFA"/>
+          <rect x="74" y="17" width="10" height="2" fill="#D6CDC0"/>
+        </svg>
+      </div>
+
+      <div class="vertical-2-3-center">
+        <svg id="plug" class='position-absolute' width="87" height="49" viewBox="0 0 87 49" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect id="large_prong_male" y="14" width="29" height="8" rx="3" fill="#C4C4C4"/>
+          <rect id="small_prong_male" y="34" x="9" width="29" height="6" rx="3" fill="#C4C4C4"/>
+          <rect x="37" width="20" height="49" fill="#D6CDC0"/>
+          <ellipse rx="19" ry="24.5" transform="matrix(-1 0 0 1 36 24.5)" fill="#D6CDC0"/>
+          <rect width="30" height="49" rx="5" transform="matrix(-1 0 0 1 75 0)" fill="#F4F4EE"/>
+          <ellipse rx="17.5" ry="24.5" transform="matrix(-1 0 0 1 69 24.5)" fill="#F4F4EE"/>
+          <path d="M29 24.5C29 38.031 39.0066 49 49.5 49C59.9934 49 68.5 38.031 68.5 24.5C68.5 10.969 59.9934 0 49.5 0C39.0066 0 29 10.969 29 24.5Z" fill="#F4F4EE"/>
+        </svg>
+      </div>
+      <div class="vertical-2-3-center">
+        <svg id="cord_svg" class="position-absolute pointer-events-none">
+          <path id="cord" d="M0 0" stroke="#D6CDC0" stroke-width="4" stroke-linecap="round" fill="transparent"></path>
+          <line x1="0" y1="0" x2="0" y2="0" id="cord_shadow" stroke="#9A9286" stroke-width="5" stroke-linecap="round" fill="transparent"></line>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="homepage-title" class="d-flex flex-justify-center font-times-new-roman visibility-none noselect">
+  <h1 class="text-color-brown font-size-100 margin-top-lg">
+    Michael Odermatt
+  </h1>
+</div>
+
+<script>
+
+  //get cord end div
+  var cord_end_div = $("#cord_end");
+
+  // initialize a plug object
+  function plug_object(plug_offset_x, plug_offset_y, plug_element, cord_svg_id, cord_element_id, cord_shadow_id, play_area_floor, play_area_ceil, play_area_wall_left, play_area_wall_right, click_sound_name) {
+    this.is_plugged_in = false;
+    this.is_holding = false;
+    this.is_hovering = false;
+    this.plug_x = 0;
+    this.plug_y = 0;
+    this.plug_offset_x = plug_offset_x;
+    this.plug_offset_y = plug_offset_y;
+    this.cord_offset_min = 100;
+    this.cord_offset_max = 200;
+    this.cord_shadow_offset = 50;
+    this.cord_svg_ceil = $("#monitor").offset().top;
+    this.play_area_floor = play_area_floor;
+    this.play_area_ceil = play_area_ceil;
+    this.play_area_wall_left = play_area_wall_left;
+    this.play_area_wall_right = play_area_wall_right;
+    this.plug_element = $("#" + plug_element);
+    this.cord_element = $("#" + cord_element_id)
+    this.cord_svg = $("#" + cord_svg_id)
+    this.cord_shadow_element = $("#" + cord_shadow_id)
+    this.socket_offset_from_center_y = 31;
+    this.socket_offset_from_wall_left_x = 0;
+    this.socket_hitbox_size = 5;
+    this.socket_x = 0;
+    this.socket_y = 0;
+    this.depth_of_socket = 36;
+    this.cord_svg_border_size = 5;
+    this.small_prong_female_x_offset = 9;
+    this.has_sound_click_played = false;
+    this.sound_click = new Audio("sounds/" + click_sound_name);
+
+    // function to encapsulate all plug movement logic
+    this.move_plug = function (new_x, new_y) {
+      this.update_plug_position(new_x, new_y)
+      this.check_plug_collision();
+      this.update_plug_element_position();
+      this.update_cord();
+    }
+
+    // function to update the x and y of the plug
+    this.update_plug_position = function (newX, newY) {
+      this.plug_x = newX - this.plug_offset_x;
+      this.plug_y = newY - this.plug_offset_y;
+    }
+
+    // update the position of the SVG representing the plug with the plug objects x and y
+    this.update_plug_element_position = function () {
+      this.plug_element.css({left: this.plug_x + 'px', top: this.plug_y + 'px'});
+    }
+
+    // function to update cord position
+    this.update_cord = function() {
+
+      // move the svg element
+      this.cord_svg.css({left: this.play_area_wall_left, top: this.cord_svg_ceil});
+
+      // resize the svg element to match the bounding box
+      this.cord_svg.attr('width', this.play_area_wall_right - this.play_area_wall_left + this.cord_svg_border_size + "px");
+      this.cord_svg.attr('height', this.play_area_floor - this.cord_svg_ceil + this.cord_svg_border_size + "px");
+
+      // calculate the end point and start point coordinates
+      var cord_end_x = $("#cord_meets_monitor").offset().left - this.play_area_wall_left;
+      var cord_end_y = $("#cord_meets_monitor").offset().top - this.cord_svg_ceil;//this.get_play_area_height_half();
+
+      var cord_start_x = (this.plug_x + this.plug_offset_x) - this.play_area_wall_left;
+      var cord_start_y = (this.plug_y + this.plug_offset_y) - this.cord_svg_ceil;
+
+      // calculate the curve for the path
+      var curve = this.calc_curve(cord_start_x, cord_start_y, cord_end_x, cord_end_y, cord_end_x);
+
+      // draw the shadow element
+      //this.draw_shadow(cord_start_x, cord_end_x);
+
+      this.cord_element.attr("d", curve)
+    }
+
+    // update the boundries of the play area
+    this.update_play_area = function () {
+      this.play_area_floor = $('#boundry_box').offset().top + $('#boundry_box').outerHeight(true);
+      this.play_area_ceil = $('#boundry_box').offset().top;
+      this.play_area_wall_left = $('#socket_div').offset().left + $('#socket_div').outerWidth()/2;
+      this.play_area_wall_right = $('#boundry_box').offset().left + $('#boundry_box').outerWidth(true);
+    }
+
+    this.update_cord_svg_ceil = function () {
+      this.cord_svg_ceil = $("#monitor").offset().top;
+    }
+
+    // check if the plug is colliding with any of the play area boundries
+    this.check_plug_collision = function () {
+      if (this.is_plugged_in == false) {
+
+        // check collision with play area walls
+        this.check_hit_floor();
+        this.check_hit_ceil();
+        this.check_hit_wall_left();
+        this.check_hit_wall_right();
+
+        this.is_plugged_in = this.has_plug_hit_socket();
+
+      } else {
+
+        // if the socket is plugged in, lock its y value and change the left and right boundries
+        this.plug_y = this.socket_y;
+        this.check_hit_end_of_socket();
+        this.check_hit_wall_right();
+        this.shift_prongs();
+        this.is_plugged_in = this.has_plug_exited_socket();
+      }
+    }
+
+    // function to prevent plug from exceeding its upper Y boundry
+    this.check_hit_floor = function () {
+      var boundry = this.play_area_floor - this.plug_element.attr("height");
+      this.plug_y = this.constrain_upper(this.plug_y, boundry)
+    }
+
+    // function to prevent plug from exceeding its lower Y boundry
+    this.check_hit_ceil = function () {
+      this.plug_y = this.constrain_lower(this.plug_y, this.play_area_ceil)
+    }
+
+    // function to prevent plug from exceeding its lower X boundry
+    this.check_hit_wall_left = function() {
+      this.plug_x = this.constrain_lower(this.plug_x, this.play_area_wall_left)
+      
+    }
+
+    // check if you have collided with the socket hitbox
+    this.has_plug_hit_socket = function() {
+      var socket_hitbox_y_lower = (this.socket_y) - this.socket_hitbox_size;
+      var socket_hitbox_y_upper = (this.socket_y) + this.socket_hitbox_size;
+
+      if (this.plug_y <= socket_hitbox_y_upper && this.plug_y >= socket_hitbox_y_lower && this.plug_x == this.play_area_wall_left) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+    // checks if the plug is pulled out far enough (if plug_x exceeds the left wall by 1 or more units)
+    this.has_plug_exited_socket = function() {
+      if (this.plug_y == this.socket_y && this.plug_x >= this.play_area_wall_left + 1) {
+        return false;
+      } else {
+        return true;
+      }
+    }
+
+    // function to prevent plug from exceeding its lower X socket boundry
+    this.check_hit_end_of_socket = function() {
+      var boundry = this.play_area_wall_left - this.depth_of_socket;
+
+      this.plug_x = this.constrain_lower(this.plug_x, boundry)
+      this.play_sound_click_if_hit_boundry(this.plug_x, boundry);
+    }
+
+    // function to prevent plug from exceeding its upper X boundry
+    this.check_hit_wall_right = function () {
+      var boundry = this.play_area_wall_right - this.plug_element.attr("width");
+      this.plug_x = this.constrain_upper(this.plug_x, boundry)
+    }
+
+    // if a value has hit a limit, play the click sound
+    this.play_sound_click_if_hit_boundry = function (value, constraint) {
+      if (value == constraint && this.has_sound_click_played == false) {
+        this.sound_click.play();
+        this.has_sound_click_played = true;
+        this.screen_on();
+      }
+
+      if (value != constraint && this.has_sound_click_played == true) {
+        this.has_sound_click_played = false;
+        this.screen_off();
+      }
+    }
+
+    // constrains a value to a upper boundry
+    this.constrain_upper = function (value, constraint) {
+      if (value > constraint) {
+        return constraint; 
+      } else {
+        return value
+      }
+    }
+
+    // constrains a value to a lower boundry
+    this.constrain_lower = function (value, constraint) {
+      if (value < constraint) {
+        return constraint; 
+      } else {
+        return value
+      }
+    }
+
+    // calculate quadratic
+    this.calc_curve = function (cord_start_x, cord_start_y, cord_end_x, cord_end_y, cord_length_max) {
+
+      // mid-point of line
+      var mpx = (cord_end_x + cord_start_x) * 0.5;
+    	var mpy = (cord_end_y + cord_start_y) * 0.5;
+    
+    	// angle perpendicular to the horizontal
+    	var theta = Math.atan2(0, cord_end_x - cord_start_x) - Math.PI / 2;
+    
+      // flips the offset sign depending on which point is bigger on the x axis
+      var offset = -800;
+
+      if (cord_start_x >cord_end_x) {
+        offset *= -1;
+      }
+    
+    	// location of control point
+    	var c1x = mpx + offset * Math.cos(theta);
+    	var c1y = mpy + offset * Math.sin(theta);
+      c1y = this.constrain_upper(c1y, this.get_cord_svg_height());
+
+      return "M" + cord_start_x + " " + cord_start_y + " Q " + c1x + " " + c1y + " " + cord_end_x + " " + cord_end_y;
+    }
+
+    // calculates distance of control point from mid-point of line
+    this.calc_offset = function (cord_start_x, cord_end_x, cord_start_y, cord_start_y, cord_length_max) {
+      var length_of_x = Math.pow(cord_end_x - cord_start_x, 2);
+      var length_of_y = Math.pow(cord_end_y - cord_start_y, 2);
+      var length_of_cord = Math.sqrt(length_of_x + length_of_y);
+
+      var cord_length_ratio = 1 - (length_of_cord / cord_length_max);
+
+      return -1 * ((cord_length_ratio * this.cord_offset_max) + this.cord_offset_min);
+    }
+
+    // draw the shadow for the cord and plug
+    this.draw_shadow = function (cord_start_x, cord_end_x) {
+      this.cord_shadow_element.attr("x1", cord_start_x - this.cord_shadow_offset );
+      this.cord_shadow_element.attr("x2", cord_end_x);
+      this.cord_shadow_element.attr("y1", this.get_cord_svg_height());
+      this.cord_shadow_element.attr("y2", this.get_cord_svg_height());
+    }
+
+    // function for when the screen turns on
+    this.screen_on = function() {
+      $("#monitor_screen").attr("fill", "#FFFFFA");
+      $("#monitor_screen").attr("stroke", "#FFFFFA");
+      $("#monitor_power_button_light").attr("fill", "#86cc8a");
+      $("#screen_text").attr("class", "");
+    }
+
+    // function for when the screen turns off
+    this.screen_off = function() {
+      $("#monitor_screen").attr("fill", "#9A9286");
+      $("#monitor_screen").attr("stroke", "#9A9286");
+      $("#monitor_power_button_light").attr("fill", "#9A8686");
+      $("#screen_text").attr("class", "visibility-none");
+    }
+
+    // function to handle the shifting prongs
+    this.shift_prongs = function () {
+      var female_large_prong_x = this.play_area_wall_left;
+      var small_prong_female_x = this.play_area_wall_left - this.small_prong_female_x_offset;
+
+      var male_large_prong_x = this.plug_x;
+      var small_prong_male_x = this.plug_x - this.small_prong_female_x_offset;
+
+      // if the male prongs have moved past the female prongs
+      if (female_large_prong_x >= male_large_prong_x) {
+        var offset_large = female_large_prong_x - male_large_prong_x;
+        var offset_small = small_prong_female_x - small_prong_male_x;
+
+        $("#large_prong_male").attr("x", offset_large);
+        $("#small_prong_male").attr("x", offset_small + this.small_prong_female_x_offset);
+      } else {
+        $("#large_prong_male").attr("x", 0);
+        $("#small_prong_male").attr("x", this.small_prong_female_x_offset);
+      }
+    }
+
+    // update socket and its hitboxes x and y values
+    this.update_socket_position = function () {
+      this.socket_x = this.play_area_wall_left - this.socket_offset_from_wall_left_x;
+      this.socket_y = this.get_play_area_height_half() + this.play_area_ceil - this.socket_offset_from_center_y;
+    }
+
+    // encapsulating function for updating the play area and its requried parameters
+    this.update_screen_dependent_variables = function () {
+      this.update_play_area();
+      this.update_cord_svg_ceil();
+      this.update_socket_position();
+    }
+
+    //getters and setters
+    this.set_is_holding = function (bool) {
+      this.is_holding = bool;
+    }
+
+    this.set_is_hovering = function (bool) {
+      this.is_hovering = bool;
+    }
+
+    this.get_is_holding = function () {
+      return this.is_holding;
+    }
+
+    this.get_is_hovering = function () {
+      return this.is_hovering;
+    }
+
+    this.get_is_plugged_in = function () {
+      return this.is_plugged_in;
+    }
+
+    this.get_play_area_floor = function () {
+      return this.play_area_floor;
+    }
+
+    this.get_play_area_ceil = function () {
+      return this.play_area_ceil;
+    }
+
+    this.get_play_area_center_x = function () {
+      return (this.play_area_wall_left + this.play_area_wall_right)/2;
+    }
+
+    this.get_play_area_height_half = function () {
+      return (this.play_area_floor - this.play_area_ceil)/2;
+    }
+
+    this.get_play_area_height = function () {
+      return this.play_area_floor - this.play_area_ceil;
+    }
+
+    this.get_cord_svg_height = function () {
+      return this.play_area_floor - this.cord_svg_ceil;
+    }
+  }
+
+  // create a plug object
+  var plug = new plug_object(55, 25,'plug', "cord_svg", "cord", "cord_shadow", 0, 0, 0, 0, "click.mp3");
+
+  // update the boundries of where the plug can exist
+  plug.update_screen_dependent_variables();
+  plug.move_plug(plug.get_play_area_center_x(), plug.get_play_area_ceil() + plug.get_play_area_height_half());
+
+  // when the mosue cursor is over the plug
+  plug.plug_element.mouseover( function() {
+    plug.set_is_hovering(true);
+  });
+
+  // when the mosue cursor is no longer over the plug
+  plug.plug_element.mouseout(function() {
+    plug.set_is_hovering(false);
+  });
+
+  // when the mouse moves
+  window.addEventListener('mousemove', (event) => {
+    if (plug.get_is_holding()) {
+      plug.move_plug(event.pageX, event.pageY);
+    }
+  });
+
+ // when the left mouse button is pressed
+ window.addEventListener('mousedown', (event) => {
+    if (plug.get_is_hovering()) {
+      plug.set_is_holding(true);
+    }
+  });
+
+  // when the left mouse button is let go
+  window.addEventListener('mouseup', (event) => {
+    if (plug.get_is_holding()) {
+      plug.set_is_holding(false);
+    }
+  });
+
+  // on window resize, update the plug position and the bounding box where the plug can exist
+  $( window ).resize(function() {
+    plug.update_screen_dependent_variables();
+    plug.move_plug(plug.plug_x, plug.plug_y);
+  });
+
+</script>
+
+
+    </main><!-- <footer class="site-footer h-card">
   <data class="u-url" href="/"></data>
 
   <div class="wrapper">
@@ -70,7 +585,7 @@
 
   </div>
 
-</footer>
+</footer> -->
 </body>
 
 </html>
