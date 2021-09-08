@@ -39,7 +39,7 @@
   font-family: 'Times New Roman', serif;
   font-size: 55px;
   text-align: center;
-  margin-top: 200px;
+  margin-top: 125px;
 }
 
 .font-size-35 {
@@ -52,7 +52,6 @@
 
 .screen-text {
   transform:
-    rotateZ(26deg)
     rotateY(15deg);
 }
 
