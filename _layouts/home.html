@@ -113,7 +113,6 @@ layout: default
           <rect x="74" y="17" width="10" height="2" fill="#D6CDC0"/>
         </svg>
       </div>
-
       <div class="vertical-2-3-center">
         <svg id="plug" class='position-absolute' width="87" height="49" viewBox="0 0 87 49" fill="none" xmlns="http://www.w3.org/2000/svg">
           <rect id="large_prong_male" y="14" width="29" height="8" rx="3" fill="#C4C4C4"/>
@@ -134,10 +133,10 @@ layout: default
     </div>
   </div>
 </div>
-<div id="homepage-title" class="d-flex flex-justify-center font-times-new-roman visibility-none noselect">
-  <h1 class="text-color-brown font-size-100 margin-top-lg">
-    Michael Odermatt
-  </h1>
+<div id="touchscreen_button" class="cursor-pointer title-brown font-size-25 margin-top-100">
+  <i class="animated-underline">
+    i'm on a touchscreen device
+  </i>
 </div>
 
 <script>
@@ -435,6 +434,12 @@ layout: default
       this.update_socket_position();
     }
 
+    // instantly moves the plug to the socket
+    this.move_plug_to_socket = function () {
+      this.is_plugged_in = true;
+      this.move_plug(this.socket_x, this.socket_y);
+    }
+
     //getters and setters
     this.set_is_holding = function (bool) {
       this.is_holding = bool;
@@ -518,6 +523,11 @@ layout: default
       plug.set_is_holding(false);
     }
   });
+
+  // button for users on mobile devices (the plug cant be moved on mobile/touchscreen devices)
+  $('#touchscreen_button').click( function(e) {e.preventDefault(); 
+    plug.move_plug_to_socket();
+  return false; } );
 
   // on window resize, update the plug position and the bounding box where the plug can exist
   $( window ).resize(function() {
