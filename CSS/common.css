@@ -33,9 +33,21 @@
 
 .pointer-events-none {pointer-events: none;}
 
-.text-color-brown {color: #3D2E19}
+.title-brown {color: #3D2E19;
+  font-family: 'Times New Roman', serif;
+  font-size: 55px;
+  text-align: center;
+}
 
-.font-times-new-roman {font-family: 'Times New Roman', serif;}
+.font-size-35 {
+  font-size: 35px;
+}
+
+.screen-text {
+  transform:
+    rotateZ(26deg)
+    rotateY(15deg);
+}
 
 .noselect {
   -webkit-touch-callout: none; /* iOS Safari */
@@ -64,4 +76,11 @@
 .screen-on {
   fill: white;
   stroke: white;
+}
+
+.limited-max-width-centered {max-width: calc(1200px - (30px * 2));
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 30px;
+  padding-left: 30px;
 }
