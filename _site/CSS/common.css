@@ -3,6 +3,7 @@
 
 .flex-justify-center { justify-content: center !important; }
 .flex-justify-around { justify-content: space-around !important; }
+.flex-justify-between { justify-content: space-between !important; }
 
 .vertical-2-3-center {
   min-height: 50%;  /* Fallback for browsers do NOT support vh unit */
