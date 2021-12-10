@@ -21,7 +21,7 @@
 title: Michael Odermatt
 email: MichaelOdermatt@outlook.com
 description: >- # this means to ignore newlines until "baseurl:"
-  CS Student at The University of British Columbia
+  CS Graduate from the University of British Columbia
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: 

@@ -3,6 +3,7 @@
  */
 .site-header {
   min-height: $spacing-unit * 1.865;
+  border-bottom: 1px solid $grey-color-light;
 
   // Positioning context for the mobile navigation icon
   position: relative;
@@ -24,8 +25,9 @@
 
 .site-nav {
   margin-top: 1em;
+  margin-bottom: 1em; 
+  float: right;
   @include relative-font-size(1.5);
-  line-height: $base-line-height * $base-font-size * 2.25;
 
   .nav-trigger {
       display: none;
@@ -38,6 +40,7 @@
   .page-link {
     color: $text-color;
     line-height: $base-line-height;
+    font-family: "Times New Roman", "Serif";
 
     // Gaps between nav items, but not on the last one
     &:not(:last-child) {
