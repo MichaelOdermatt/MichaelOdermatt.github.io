@@ -121,6 +121,8 @@ table td { border: 1px solid #e8e8e8; }
 /** Posts */
 .post-header { margin-bottom: 30px; }
 
+.post-page-margin { margin: 30px; }
+
 .post-title { font-size: 47.25px; letter-spacing: -1px; line-height: 1; }
 @media screen and (max-width: 800px) { .post-title { font-size: 40.5px; } }
 
