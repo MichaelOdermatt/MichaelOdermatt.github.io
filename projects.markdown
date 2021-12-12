@@ -4,5 +4,12 @@ title: Projects
 permalink: /projects/
 ---
 
+<ul>
+    <li>
+      <a href="{{ '/projects/project1' | relative_url }}">Project 1</a>
+    </li>
+</ul>
 
-Bravo Omega
+<br>
+
+Last Updated Dec 12th, 2021
