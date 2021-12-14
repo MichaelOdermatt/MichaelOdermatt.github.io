@@ -6,10 +6,10 @@ permalink: /projects/
 
 <ul>
     <li>
-      <a href="{{ '/projects/project1' | relative_url }}">Project 1</a>
+      <a href="{{ '/projects/bravo-omega' | relative_url }}">Bravo Omega</a>
     </li>
 </ul>
 
 <br>
 
-Last Updated Dec 12th, 2021
+Last Updated Dec 13th, 2021
