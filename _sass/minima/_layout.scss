@@ -218,6 +218,10 @@
   margin-bottom: $spacing-unit;
 }
 
+.post-page-margin {
+  margin: $spacing-unit;
+}
+
 .post-title {
   @include relative-font-size(2.625);
   letter-spacing: -1px;
