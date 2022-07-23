@@ -220,8 +220,14 @@
 }
 
 .post-page-content {
-  margin: auto;
-  width: 50%;
+  margin: $spacing-unit;
+}
+
+@media all and (min-width: 900px){
+  .post-page-content {
+    margin: auto;
+    width: 50%;
+  }
 }
 
 .post-title {
