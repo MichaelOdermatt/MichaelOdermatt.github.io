@@ -2,7 +2,7 @@
 layout: page
 title: Star Marcher
 ---
-Star Marcher is a mechanically simple game with only 25 levels and no sound as of writing this, though that may change down the line. My main purpose for making it was to exercise my skill with C#, Unity, and hopefully add another interesting project to my portfilo.
+Star Marcher is a small game that offers 25 levels, providing a simple and yet hopefully engaging experience. Although sound is not currently incorporated, the game thrives on its primary objective—to showcase my abilities in C# and Unity development. Furthermore, this project serves as an exciting addition to my ever-growing list of projects.
 
 
 <img src="https://github.com/MichaelOdermatt/Star_Marcher/blob/main/Assets/Screenshots/Screenshot%201.PNG?raw=true" alt="Screenshot 1" width="450"/>
