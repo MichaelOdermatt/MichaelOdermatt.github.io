@@ -1,5 +1,5 @@
 //get cord end div
-var cord_end_div = $("#cord_end");
+var cord_end_div = document.querySelector("#cord_end");
 
 // initialize a plug object
 function plug_object(plug_offset_x, plug_offset_y, plug_element, cord_svg_id, cord_element_id, cord_shadow_id, play_area_floor, play_area_ceil, play_area_wall_left, play_area_wall_right, click_sound_name) {
@@ -13,15 +13,15 @@ function plug_object(plug_offset_x, plug_offset_y, plug_element, cord_svg_id, co
   this.cord_offset_min = 100;
   this.cord_offset_max = 200;
   this.cord_shadow_offset = 50;
-  this.cord_svg_ceil = $("#monitor").offset().top;
+  this.cord_svg_ceil = getElementOffset(document.querySelector("#monitor")).top;
   this.play_area_floor = play_area_floor;
   this.play_area_ceil = play_area_ceil;
   this.play_area_wall_left = play_area_wall_left;
   this.play_area_wall_right = play_area_wall_right;
-  this.plug_element = $("#" + plug_element);
-  this.cord_element = $("#" + cord_element_id)
-  this.cord_svg = $("#" + cord_svg_id)
-  this.cord_shadow_element = $("#" + cord_shadow_id)
+  this.plug_element = document.querySelector("#" + plug_element);
+  this.cord_element = document.querySelector("#" + cord_element_id)
+  this.cord_svg = document.querySelector("#" + cord_svg_id)
+  this.cord_shadow_element = document.querySelector("#" + cord_shadow_id)
   this.socket_offset_from_center_y = 31;
   this.socket_offset_from_wall_left_x = 0;
   this.socket_hitbox_size = 5;
@@ -49,22 +49,24 @@ function plug_object(plug_offset_x, plug_offset_y, plug_element, cord_svg_id, co
 
   // update the position of the SVG representing the plug with the plug objects x and y
   this.update_plug_element_position = function () {
-    this.plug_element.css({left: this.plug_x + 'px', top: this.plug_y + 'px'});
+    this.plug_element.style.left = `${this.plug_x}px`;
+    this.plug_element.style.top = `${this.plug_y}px`;
   }
 
   // function to update cord position
   this.update_cord = function() {
 
     // move the svg element
-    this.cord_svg.css({left: this.play_area_wall_left, top: this.cord_svg_ceil});
+    this.cord_svg.style.left = `${this.play_area_wall_left}px`;
+    this.cord_svg.style.top = `${this.cord_svg_ceil}px`;
 
     // resize the svg element to match the bounding box
-    this.cord_svg.attr('width', this.play_area_wall_right - this.play_area_wall_left + this.cord_svg_border_size + "px");
-    this.cord_svg.attr('height', this.play_area_floor - this.cord_svg_ceil + this.cord_svg_border_size + "px");
+    this.cord_svg.setAttribute('width', this.play_area_wall_right - this.play_area_wall_left + this.cord_svg_border_size + "px");
+    this.cord_svg.setAttribute('height', this.play_area_floor - this.cord_svg_ceil + this.cord_svg_border_size + "px");
 
     // calculate the end point and start point coordinates
-    var cord_end_x = $("#cord_meets_monitor").offset().left - this.play_area_wall_left;
-    var cord_end_y = $("#cord_meets_monitor").offset().top - this.cord_svg_ceil;//this.get_play_area_height_half();
+    var cord_end_x = getElementOffset(document.querySelector("#cord_meets_monitor")).left - this.play_area_wall_left;
+    var cord_end_y = getElementOffset(document.querySelector("#cord_meets_monitor")).top - this.cord_svg_ceil;
 
     var cord_start_x = (this.plug_x + this.plug_offset_x) - this.play_area_wall_left;
     var cord_start_y = (this.plug_y + this.plug_offset_y) - this.cord_svg_ceil;
@@ -75,19 +77,19 @@ function plug_object(plug_offset_x, plug_offset_y, plug_element, cord_svg_id, co
     // draw the shadow element
     //this.draw_shadow(cord_start_x, cord_end_x);
 
-    this.cord_element.attr("d", curve)
+    this.cord_element.setAttribute("d", curve)
   }
 
   // update the boundries of the play area
   this.update_play_area = function () {
-    this.play_area_floor = $('#boundry_box').offset().top + $('#boundry_box').outerHeight(true);
-    this.play_area_ceil = $('#boundry_box').offset().top;
-    this.play_area_wall_left = $('#socket_div').offset().left + $('#socket_div').outerWidth()/2;
-    this.play_area_wall_right = $('#boundry_box').offset().left + $('#boundry_box').outerWidth(true);
+    this.play_area_floor = getElementOffset(document.querySelector('#boundry_box')).top + getAbsoluteHieght(document.querySelector('#boundry_box'));
+    this.play_area_ceil = getElementOffset(document.querySelector('#boundry_box')).top;
+    this.play_area_wall_left = getElementOffset(document.querySelector('#socket_div')).left + getAbsoluteWidth(document.querySelector('#socket_div'))/2;
+    this.play_area_wall_right = getElementOffset(document.querySelector('#boundry_box')).left + getAbsoluteWidth(document.querySelector('#boundry_box'));
   }
 
   this.update_cord_svg_ceil = function () {
-    this.cord_svg_ceil = $("#monitor").offset().top;
+    this.cord_svg_ceil = getElementOffset(document.querySelector("#monitor")).top;
   }
 
   // check if the plug is colliding with any of the play area boundries
@@ -115,7 +117,7 @@ function plug_object(plug_offset_x, plug_offset_y, plug_element, cord_svg_id, co
 
   // function to prevent plug from exceeding its upper Y boundry
   this.check_hit_floor = function () {
-    var boundry = this.play_area_floor - this.plug_element.attr("height");
+    var boundry = this.play_area_floor - this.plug_element.getAttribute("height");
     this.plug_y = this.constrain_upper(this.plug_y, boundry)
   }
 
@@ -161,7 +163,7 @@ function plug_object(plug_offset_x, plug_offset_y, plug_element, cord_svg_id, co
 
   // function to prevent plug from exceeding its upper X boundry
   this.check_hit_wall_right = function () {
-    var boundry = this.play_area_wall_right - this.plug_element.attr("width");
+    var boundry = this.play_area_wall_right - this.plug_element.getAttribute("width");
     this.plug_x = this.constrain_upper(this.plug_x, boundry)
   }
 
@@ -233,28 +235,29 @@ function plug_object(plug_offset_x, plug_offset_y, plug_element, cord_svg_id, co
     return -1 * ((cord_length_ratio * this.cord_offset_max) + this.cord_offset_min);
   }
 
+  // TODO this can be deleted
   // draw the shadow for the cord and plug
   this.draw_shadow = function (cord_start_x, cord_end_x) {
-    this.cord_shadow_element.attr("x1", cord_start_x - this.cord_shadow_offset );
-    this.cord_shadow_element.attr("x2", cord_end_x);
-    this.cord_shadow_element.attr("y1", this.get_cord_svg_height());
-    this.cord_shadow_element.attr("y2", this.get_cord_svg_height());
+    this.cord_shadow_element.setAttribute("x1", cord_start_x - this.cord_shadow_offset );
+    this.cord_shadow_element.setAttribute("x2", cord_end_x);
+    this.cord_shadow_element.setAttribute("y1", this.get_cord_svg_height());
+    this.cord_shadow_element.setAttribute("y2", this.get_cord_svg_height());
   }
 
   // function for when the screen turns on
   this.screen_on = function() {
-    $("#monitor_screen").attr("fill", "#FFFFFA");
-    $("#monitor_screen").attr("stroke", "#FFFFFA");
-    $("#monitor_power_button_light").attr("fill", "#86cc8a");
-    $("#screen_text").attr("class", "");
+    document.querySelector("#monitor_screen").setAttribute("fill", "#FFFFFA");
+    document.querySelector("#monitor_screen").setAttribute("stroke", "#FFFFFA");
+    document.querySelector("#monitor_power_button_light").setAttribute("fill", "#86cc8a");
+    document.querySelector("#screen_text").setAttribute("class", "");
   }
 
   // function for when the screen turns off
   this.screen_off = function() {
-    $("#monitor_screen").attr("fill", "#9A9286");
-    $("#monitor_screen").attr("stroke", "#9A9286");
-    $("#monitor_power_button_light").attr("fill", "#9A8686");
-    $("#screen_text").attr("class", "visibility-none");
+    document.querySelector("#monitor_screen").setAttribute("fill", "#9A9286");
+    document.querySelector("#monitor_screen").setAttribute("stroke", "#9A9286");
+    document.querySelector("#monitor_power_button_light").setAttribute("fill", "#9A8686");
+    document.querySelector("#screen_text").setAttribute("class", "visibility-none");
   }
 
   // function to handle the shifting prongs
@@ -270,11 +273,11 @@ function plug_object(plug_offset_x, plug_offset_y, plug_element, cord_svg_id, co
       var offset_large = female_large_prong_x - male_large_prong_x;
       var offset_small = small_prong_female_x - small_prong_male_x;
 
-      $("#large_prong_male").attr("x", offset_large);
-      $("#small_prong_male").attr("x", offset_small + this.small_prong_female_x_offset);
+      document.querySelector("#large_prong_male").setAttribute("x", offset_large);
+      document.querySelector("#small_prong_male").setAttribute("x", offset_small + this.small_prong_female_x_offset);
     } else {
-      $("#large_prong_male").attr("x", 0);
-      $("#small_prong_male").attr("x", this.small_prong_female_x_offset);
+      document.querySelector("#large_prong_male").setAttribute("x", 0);
+      document.querySelector("#small_prong_male").setAttribute("x", this.small_prong_female_x_offset);
     }
   }
 
@@ -351,12 +354,12 @@ plug.update_screen_dependent_variables();
 plug.move_plug(plug.get_play_area_center_x(), plug.get_play_area_ceil() + plug.get_play_area_height_half());
 
 // when the mosue cursor is over the plug
-plug.plug_element.mouseover( function() {
+plug.plug_element.addEventListener('mouseover', function() {
   plug.set_is_hovering(true);
 });
 
 // when the mosue cursor is no longer over the plug
-plug.plug_element.mouseout(function() {
+plug.plug_element.addEventListener('mouseout', function() {
   plug.set_is_hovering(false);
 });
 
@@ -382,12 +385,12 @@ window.addEventListener('mouseup', (event) => {
 });
 
 // button for users on mobile devices (the plug cant be moved on mobile/touchscreen devices)
-$('#touchscreen_button').click( function(e) {e.preventDefault(); 
+document.querySelector('#touchscreen_button').addEventListener('click', function(e) {e.preventDefault(); 
   plug.move_plug_to_socket();
 return false; } );
 
 // on window resize, update the plug position and the bounding box where the plug can exist
-$( window ).resize(function() {
+window.addEventListener('resize', function() {
   plug.update_screen_dependent_variables();
   plug.move_plug(plug.plug_x, plug.plug_y);
 });
