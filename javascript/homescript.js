@@ -80,12 +80,17 @@ update_cord = function () {
     cord_svg.style.top = `${cord_svg_ceil}px`;
 
     // resize the svg element to match the bounding box
-    cord_svg.setAttribute('width', play_area_wall_right - play_area_wall_left + cord_svg_border_size + "px");
-    cord_svg.setAttribute('height', play_area_floor - cord_svg_ceil + cord_svg_border_size + "px");
+    const cordSvgWidth = play_area_wall_right - play_area_wall_left + cord_svg_border_size;
+    const cordSvgHeight = play_area_floor - cord_svg_ceil + cord_svg_border_size;
+
+    cord_svg.setAttribute('width', cordSvgWidth + "px");
+    cord_svg.setAttribute('height', cordSvgHeight + "px");
 
     // calculate the end point and start point coordinates
-    var cord_end_x = getElementOffset(document.querySelector(selectors.cord.cordMeetsMonitor)).left - play_area_wall_left;
-    var cord_end_y = getElementOffset(document.querySelector(selectors.cord.cordMeetsMonitor)).top - cord_svg_ceil;
+    const cordMeetsMonitorOffset = getElementOffset(document.querySelector(selectors.cord.cordMeetsMonitor));
+
+    var cord_end_x = cordMeetsMonitorOffset.left - play_area_wall_left;
+    var cord_end_y = cordMeetsMonitorOffset.top - cord_svg_ceil;
 
     var cord_start_x = (plug_x + plug_offset_x) - play_area_wall_left;
     var cord_start_y = (plug_y + plug_offset_y) - cord_svg_ceil;
@@ -98,10 +103,19 @@ update_cord = function () {
 
 // update the boundries of the play area
 update_play_area = function () {
-    play_area_floor = getElementOffset(document.querySelector(selectors.boundryBox)).top + getAbsoluteHieght(document.querySelector('#boundry_box'));
-    play_area_ceil = getElementOffset(document.querySelector(selectors.boundryBox)).top;
-    play_area_wall_left = getElementOffset(document.querySelector(selectors.socketDiv)).left + getAbsoluteWidth(document.querySelector('#socket_div')) / 2;
-    play_area_wall_right = getElementOffset(document.querySelector(selectors.boundryBox)).left + getAbsoluteWidth(document.querySelector('#boundry_box'));
+    const socketDiv = document.querySelector(selectors.socketDiv);
+    const socketDivOffset = getElementOffset(socketDiv);
+    const socketDivAbsoluteWidth = getAbsoluteWidth(socketDiv);
+
+    const boundingBox = document.querySelector(selectors.boundryBox)
+    const boundingBoxAbsoluteHeight = getAbsoluteHieght(boundingBox);
+    const boundingBoxAbsoluteWidth = getAbsoluteWidth(boundingBox);
+    const boundingBoxOffset = getElementOffset(boundingBox);
+
+    play_area_floor = boundingBoxOffset.top + boundingBoxAbsoluteHeight;
+    play_area_ceil = boundingBoxOffset.top;
+    play_area_wall_left = socketDivOffset.left + socketDivAbsoluteWidth / 2;
+    play_area_wall_right = boundingBoxOffset.left + boundingBoxAbsoluteWidth;
 }
 
 update_cord_svg_ceil = function () {
@@ -253,18 +267,26 @@ calc_offset = function (cord_start_x, cord_end_x, cord_start_y, cord_start_y, co
 
 // function for when the screen turns on
 screen_on = function () {
-    document.querySelector(selectors.monitor.screen).setAttribute("fill", "#FFFFFA");
-    document.querySelector(selectors.monitor.screen).setAttribute("stroke", "#FFFFFA");
-    document.querySelector(selectors.monitor.powerBtnLight).setAttribute("fill", "#86cc8a");
-    document.querySelector(selectors.monitor.screenText).setAttribute("class", "");
+    const monitorScreen = document.querySelector(selectors.monitor.screen);
+    const screenText = document.querySelector(selectors.monitor.screenText);
+    const powerBtnLight = document.querySelector(selectors.monitor.powerBtnLight);
+
+    monitorScreen.setAttribute("fill", "#FFFFFA");
+    monitorScreen.setAttribute("stroke", "#FFFFFA");
+    powerBtnLight.setAttribute("fill", "#86cc8a");
+    screenText.setAttribute("class", "");
 }
 
 // function for when the screen turns off
 screen_off = function () {
-    document.querySelector(selectors.monitor.screen).setAttribute("fill", "#9A9286");
-    document.querySelector(selectors.monitor.screen).setAttribute("stroke", "#9A9286");
-    document.querySelector(selectors.monitor.powerBtnLight).setAttribute("fill", "#9A8686");
-    document.querySelector(selectors.monitor.screenText).setAttribute("class", "visibility-none");
+    const monitorScreen = document.querySelector(selectors.monitor.screen);
+    const screenText = document.querySelector(selectors.monitor.screenText);
+    const powerBtnLight = document.querySelector(selectors.monitor.powerBtnLight);
+
+    monitorScreen.setAttribute("fill", "#9A9286");
+    monitorScreen.setAttribute("stroke", "#9A9286");
+    powerBtnLight.setAttribute("fill", "#9A8686");
+    screenText.setAttribute("class", "visibility-none");
 }
 
 // function to handle the shifting prongs
@@ -275,16 +297,18 @@ shift_prongs = function () {
     var male_large_prong_x = plug_x;
     var small_prong_male_x = plug_x - small_prong_female_x_offset;
 
+    const largeProng = document.querySelector(selectors.cord.largeProng);
+    const smallProng = document.querySelector(selectors.cord.smallProng);
     // if the male prongs have moved past the female prongs
     if (female_large_prong_x >= male_large_prong_x) {
         var offset_large = female_large_prong_x - male_large_prong_x;
         var offset_small = small_prong_female_x - small_prong_male_x;
 
-        document.querySelector(selectors.cord.largeProng).setAttribute("x", offset_large);
-        document.querySelector(selectors.cord.smallProng).setAttribute("x", offset_small + small_prong_female_x_offset);
+        largeProng.setAttribute("x", offset_large);
+        smallProng.setAttribute("x", offset_small + small_prong_female_x_offset);
     } else {
-        document.querySelector(selectors.cord.largeProng).setAttribute("x", 0);
-        document.querySelector(selectors.cord.smallProng).setAttribute("x", small_prong_female_x_offset);
+        largeProng.setAttribute("x", 0);
+        smallProng.setAttribute("x", small_prong_female_x_offset);
     }
 }
 
