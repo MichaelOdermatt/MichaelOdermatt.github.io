@@ -20,7 +20,9 @@ const selectors = Object.freeze({
 });
  
 let is_plugged_in = false;
+// if the user has their cursor button held down while over the plug element.
 let is_holding = false;
+// if the user has their cursor over the plug element.
 let is_hovering = false;
 let plug_x = 0;
 let plug_y = 0;
@@ -28,6 +30,7 @@ let plug_offset_x = 55;
 let plug_offset_y = 25;
 let cord_offset_min = 100;
 let cord_offset_max = 200;
+// the top y coordinate of the svg element used to draw the cord
 let cord_svg_ceil = getElementOffset(document.querySelector(selectors.monitor.parent)).top;
 let play_area_floor = 0;
 let play_area_ceil = 0;
@@ -77,9 +80,7 @@ window.addEventListener('mousedown', () => {
 
 // when the left mouse button is let go
 window.addEventListener('mouseup', () => {
-    if (is_holding) {
-        is_holding = false;
-    }
+    is_holding = false;
 });
 
 // button for users on mobile devices (the plug cant be moved on mobile/touchscreen devices)
@@ -144,7 +145,9 @@ function update_cord() {
     cord_element.setAttribute("d", curve)
 }
 
-// update the boundries of the play area
+/**
+ * Updates the size and location of the area on the screen in which the plug is able to move
+ */
 function update_play_area() {
     const socket_div = document.querySelector(selectors.socket_div);
     const socket_div_offset = getElementOffset(socket_div);
@@ -159,10 +162,6 @@ function update_play_area() {
     play_area_ceil = bounding_box_offset.top;
     play_area_wall_left = socket_div_offset.left + socket_div_absolute_width / 2;
     play_area_wall_right = bounding_box_offset.left + bounding_box_absolute_width;
-}
-
-function update_cord_svg_ceil() {
-    cord_svg_ceil = getElementOffset(document.querySelector(selectors.monitor.parent)).top;
 }
 
 // check if the plug is colliding with any of the play area boundries
@@ -352,16 +351,22 @@ function shift_prongs() {
     }
 }
 
-// update socket and its hitboxes x and y values
+/**
+ * Updates the x and y positions for the socket element
+ */
 function update_socket_position() {
     socket_x = play_area_wall_left - socket_offset_from_wall_left_x;
     socket_y = get_play_area_height_half() + play_area_ceil - socket_offset_from_center_y;
 }
 
-// encapsulating function for updating the play area and its requried parameters
+/**
+ * Updates the area in which the plug can be moved, the size and position of where the cord can be drawn, and
+ * the position of the wall socket element.
+ */
 function update_screen_dependent_variables() {
     update_play_area();
-    update_cord_svg_ceil();
+    // update the size of the svg element that draws the cord
+    cord_svg_ceil = getElementOffset(document.querySelector(selectors.monitor.parent)).top;
     update_socket_position();
 }
 

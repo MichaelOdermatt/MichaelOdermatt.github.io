@@ -1,5 +1,9 @@
-// Functions taken from JQuery 
-
+/**
+ * Takes an element and returns an object containing that element's coordinates relative to the document.
+ * (taken from JQuery)
+ * @param {*} element the element whose coordinates we want.
+ * @returns the given elements coordinates relative to the document
+ */
 function getElementOffset(element) {
     // Return zeros for disconnected and hidden (display: none) elements (gh-2310)
     // Support: IE <=11 only
