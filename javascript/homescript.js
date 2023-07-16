@@ -1,23 +1,22 @@
-// TODO rename some of the ids?
+// TODO update all function comments, properly comment functions
 const selectors = Object.freeze({
     monitor: {
         parent: '#monitor',
         screen: '#monitor_screen',
-        screenText: '#screen_text',
-        powerBtnLight: '#monitor_power_button_light',
+        screen_text: '#screen_text',
+        power_btn_light: '#monitor_power_button_light',
     },
-    plugElement: '#plug',
+    plug_element: '#plug',
     cord: {
         path: '#cord',
         svg: '#cord_svg',
-        endDiv: '#cord_end',
-        cordMeetsMonitor: '#cord_meets_monitor',
-        largeProng: '#large_prong_male',
-        smallProng: '#small_prong_male',
+        cord_meets_monitor: '#cord_meets_monitor',
+        large_prong: '#large_prong',
+        small_prong: '#small_prong',
     },
-    boundryBox: '#boundry_box', // TODO should this be bounding box?
-    socketDiv: '#socket_div',
-    touchscreenBtn: '#touchscreen_button',
+    bounding_box: '#bounding_box',
+    socket_div: '#socket_div',
+    touchscreen_btn: '#touchscreen_button',
 });
  
 let is_plugged_in = false;
@@ -34,7 +33,7 @@ let play_area_floor = 0;
 let play_area_ceil = 0;
 let play_area_wall_left = 0;
 let play_area_wall_right = 0;
-let plug_element = document.querySelector(selectors.plugElement);
+let plug_element = document.querySelector(selectors.plug_element);
 let cord_element = document.querySelector(selectors.cord.path)
 let cord_svg = document.querySelector(selectors.cord.svg)
 let socket_offset_from_center_y = 31;
@@ -84,7 +83,7 @@ window.addEventListener('mouseup', () => {
 });
 
 // button for users on mobile devices (the plug cant be moved on mobile/touchscreen devices)
-document.querySelector(selectors.touchscreenBtn).addEventListener('click', (e) => {
+document.querySelector(selectors.touchscreen_btn).addEventListener('click', (e) => {
     e.preventDefault();
     move_plug_to_socket();
     return false;
@@ -124,17 +123,17 @@ function update_cord() {
     cord_svg.style.top = `${cord_svg_ceil}px`;
 
     // resize the svg element to match the bounding box
-    const cordSvgWidth = play_area_wall_right - play_area_wall_left + cord_svg_border_size;
-    const cordSvgHeight = play_area_floor - cord_svg_ceil + cord_svg_border_size;
+    const cord_svg_width = play_area_wall_right - play_area_wall_left + cord_svg_border_size;
+    const cord_svg_height = play_area_floor - cord_svg_ceil + cord_svg_border_size;
 
-    cord_svg.setAttribute('width', cordSvgWidth + "px");
-    cord_svg.setAttribute('height', cordSvgHeight + "px");
+    cord_svg.setAttribute('width', cord_svg_width + "px");
+    cord_svg.setAttribute('height', cord_svg_height + "px");
 
     // calculate the end point and start point coordinates
-    const cordMeetsMonitorOffset = getElementOffset(document.querySelector(selectors.cord.cordMeetsMonitor));
+    const cord_meets_monitor = getElementOffset(document.querySelector(selectors.cord.cord_meets_monitor));
 
-    var cord_end_x = cordMeetsMonitorOffset.left - play_area_wall_left;
-    var cord_end_y = cordMeetsMonitorOffset.top - cord_svg_ceil;
+    var cord_end_x = cord_meets_monitor.left - play_area_wall_left;
+    var cord_end_y = cord_meets_monitor.top - cord_svg_ceil;
 
     var cord_start_x = (plug_x + plug_offset_x) - play_area_wall_left;
     var cord_start_y = (plug_y + plug_offset_y) - cord_svg_ceil;
@@ -147,19 +146,19 @@ function update_cord() {
 
 // update the boundries of the play area
 function update_play_area() {
-    const socketDiv = document.querySelector(selectors.socketDiv);
-    const socketDivOffset = getElementOffset(socketDiv);
-    const socketDivAbsoluteWidth = getAbsoluteWidth(socketDiv);
+    const socket_div = document.querySelector(selectors.socket_div);
+    const socket_div_offset = getElementOffset(socket_div);
+    const socket_div_absolute_width = getAbsoluteWidth(socket_div);
 
-    const boundingBox = document.querySelector(selectors.boundryBox)
-    const boundingBoxAbsoluteHeight = getAbsoluteHieght(boundingBox);
-    const boundingBoxAbsoluteWidth = getAbsoluteWidth(boundingBox);
-    const boundingBoxOffset = getElementOffset(boundingBox);
+    const bounding_box = document.querySelector(selectors.bounding_box)
+    const bounding_box_absolute_height = getAbsoluteHieght(bounding_box);
+    const bounding_box_absolute_width = getAbsoluteWidth(bounding_box);
+    const bounding_box_offset = getElementOffset(bounding_box);
 
-    play_area_floor = boundingBoxOffset.top + boundingBoxAbsoluteHeight;
-    play_area_ceil = boundingBoxOffset.top;
-    play_area_wall_left = socketDivOffset.left + socketDivAbsoluteWidth / 2;
-    play_area_wall_right = boundingBoxOffset.left + boundingBoxAbsoluteWidth;
+    play_area_floor = bounding_box_offset.top + bounding_box_absolute_height;
+    play_area_ceil = bounding_box_offset.top;
+    play_area_wall_left = socket_div_offset.left + socket_div_absolute_width / 2;
+    play_area_wall_right = bounding_box_offset.left + bounding_box_absolute_width;
 }
 
 function update_cord_svg_ceil() {
@@ -311,26 +310,23 @@ function calc_offset(cord_start_x, cord_end_x, cord_start_y, cord_start_y, cord_
 
 // function for when the screen turns on
 function screen_on() {
-    const monitorScreen = document.querySelector(selectors.monitor.screen);
-    const screenText = document.querySelector(selectors.monitor.screenText);
-    const powerBtnLight = document.querySelector(selectors.monitor.powerBtnLight);
-
-    monitorScreen.setAttribute("fill", "#FFFFFA");
-    monitorScreen.setAttribute("stroke", "#FFFFFA");
-    powerBtnLight.setAttribute("fill", "#86cc8a");
-    screenText.setAttribute("class", "");
+    update_screen_colors("#FFFFFA", "#86cc8a", true);
 }
 
 // function for when the screen turns off
 function screen_off() {
-    const monitorScreen = document.querySelector(selectors.monitor.screen);
-    const screenText = document.querySelector(selectors.monitor.screenText);
-    const powerBtnLight = document.querySelector(selectors.monitor.powerBtnLight);
+    update_screen_colors("#9A9286", "#9A8686", false);
+}
 
-    monitorScreen.setAttribute("fill", "#9A9286");
-    monitorScreen.setAttribute("stroke", "#9A9286");
-    powerBtnLight.setAttribute("fill", "#9A8686");
-    screenText.setAttribute("class", "visibility-none");
+function update_screen_colors(monitor_screen_color, power_btn_light_color, show_screen_text) {
+    const monitor_screen = document.querySelector(selectors.monitor.screen);
+    const screen_text = document.querySelector(selectors.monitor.screen_text);
+    const power_btn_light = document.querySelector(selectors.monitor.power_btn_light);
+
+    monitor_screen.setAttribute("fill", monitor_screen_color);
+    monitor_screen.setAttribute("stroke", monitor_screen_color);
+    power_btn_light.setAttribute("fill", power_btn_light_color);
+    screen_text.setAttribute("class", show_screen_text ? "" : "visibility-none");
 }
 
 // function to handle the shifting prongs
@@ -341,18 +337,18 @@ function shift_prongs() {
     var male_large_prong_x = plug_x;
     var small_prong_male_x = plug_x - small_prong_female_x_offset;
 
-    const largeProng = document.querySelector(selectors.cord.largeProng);
-    const smallProng = document.querySelector(selectors.cord.smallProng);
+    const large_prong = document.querySelector(selectors.cord.large_prong);
+    const small_prong = document.querySelector(selectors.cord.small_prong);
     // if the male prongs have moved past the female prongs
     if (female_large_prong_x >= male_large_prong_x) {
         var offset_large = female_large_prong_x - male_large_prong_x;
         var offset_small = small_prong_female_x - small_prong_male_x;
 
-        largeProng.setAttribute("x", offset_large);
-        smallProng.setAttribute("x", offset_small + small_prong_female_x_offset);
+        large_prong.setAttribute("x", offset_large);
+        small_prong.setAttribute("x", offset_small + small_prong_female_x_offset);
     } else {
-        largeProng.setAttribute("x", 0);
-        smallProng.setAttribute("x", small_prong_female_x_offset);
+        large_prong.setAttribute("x", 0);
+        small_prong.setAttribute("x", small_prong_female_x_offset);
     }
 }
 
