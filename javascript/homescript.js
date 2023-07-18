@@ -1,4 +1,5 @@
 // TODO update all function comments, properly comment functions
+// TODO go through all vars (including ones in functions) and make appropriate ones const
 const selectors = Object.freeze({
     monitor: {
         parent: '#monitor',
@@ -19,6 +20,20 @@ const selectors = Object.freeze({
     touchscreen_btn: '#touchscreen_button',
 });
  
+// TODO could I just use plug height and width / 2?
+// plug_offset is a corrective value that we use when we calculate the correct x and y values for the plug
+const plug_offset_x = 55;
+const plug_offset_y = 25;
+// TODO what is this?
+const socket_offset_from_center_y = 31;
+const socket_offset_from_wall_left_x = 0;
+const socket_hitbox_size = 5;
+const depth_of_socket = 36;
+const cord_svg_border_size = 5;
+// TODO rename this
+const small_prong_female_x_offset = 9;
+const sound_click = new Audio("sounds/click.mp3");
+
 let is_plugged_in = false;
 // if the user has their cursor button held down while over the plug element.
 let is_holding = false;
@@ -26,10 +41,6 @@ let is_holding = false;
 let is_hovering = false;
 let plug_x = 0;
 let plug_y = 0;
-let plug_offset_x = 55;
-let plug_offset_y = 25;
-let cord_offset_min = 100;
-let cord_offset_max = 200;
 // the top y coordinate of the svg element used to draw the cord
 let cord_svg_ceil = getElementOffset(document.querySelector(selectors.monitor.parent)).top;
 let play_area_floor = 0;
@@ -39,16 +50,9 @@ let play_area_wall_right = 0;
 let plug_element = document.querySelector(selectors.plug_element);
 let cord_element = document.querySelector(selectors.cord.path)
 let cord_svg = document.querySelector(selectors.cord.svg)
-let socket_offset_from_center_y = 31;
-let socket_offset_from_wall_left_x = 0;
-let socket_hitbox_size = 5;
 let socket_x = 0;
 let socket_y = 0;
-let depth_of_socket = 36;
-let cord_svg_border_size = 5;
-let small_prong_female_x_offset = 9;
 let has_sound_click_played = false;
-let sound_click = new Audio("sounds/click.mp3");
 
 // update the boundries of where the plug can exist
 update_screen_dependent_variables();
@@ -166,13 +170,20 @@ function update_play_area() {
 
 // check if the plug is colliding with any of the play area boundries
 function check_plug_collision() {
+    var rightBoundry = play_area_wall_right - plug_element.getAttribute("width");
+    var leftBoundry = play_area_floor - plug_element.getAttribute("height");
+
     if (is_plugged_in == false) {
 
         // check collision with play area walls
-        check_hit_floor();
-        check_hit_ceil();
-        check_hit_wall_left();
-        check_hit_wall_right();
+
+        // prevent plug from going past the upper and lower boundries
+        plug_y = Math.min(plug_y, leftBoundry)
+        plug_y = Math.max(plug_y, play_area_ceil)
+
+        // prevent plug from going past the left and right boundries
+        plug_x = Math.max(plug_x, play_area_wall_left)
+        plug_x = Math.min(plug_x, rightBoundry)
 
         is_plugged_in = has_plug_hit_socket();
 
@@ -181,27 +192,10 @@ function check_plug_collision() {
         // if the socket is plugged in, lock its y value and change the left and right boundries
         plug_y = socket_y;
         check_hit_end_of_socket();
-        check_hit_wall_right();
+        plug_x = Math.min(plug_x, rightBoundry)
         shift_prongs();
         is_plugged_in = has_plug_exited_socket();
     }
-}
-
-// function to prevent plug from exceeding its upper Y boundry
-function check_hit_floor() {
-    var boundry = play_area_floor - plug_element.getAttribute("height");
-    plug_y = constrain_upper(plug_y, boundry)
-}
-
-// function to prevent plug from exceeding its lower Y boundry
-function check_hit_ceil() {
-    plug_y = constrain_lower(plug_y, play_area_ceil)
-}
-
-// function to prevent plug from exceeding its lower X boundry
-function check_hit_wall_left() {
-    plug_x = constrain_lower(plug_x, play_area_wall_left)
-
 }
 
 // check if you have collided with the socket hitbox
@@ -229,14 +223,8 @@ function has_plug_exited_socket() {
 function check_hit_end_of_socket() {
     var boundry = play_area_wall_left - depth_of_socket;
 
-    plug_x = constrain_lower(plug_x, boundry)
+    plug_x = Math.max(plug_x, boundry)
     play_sound_click_if_hit_boundry(plug_x, boundry);
-}
-
-// function to prevent plug from exceeding its upper X boundry
-function check_hit_wall_right() {
-    var boundry = play_area_wall_right - plug_element.getAttribute("width");
-    plug_x = constrain_upper(plug_x, boundry)
 }
 
 // if a value has hit a limit, play the click sound
@@ -244,30 +232,12 @@ function play_sound_click_if_hit_boundry(value, constraint) {
     if (value == constraint && has_sound_click_played == false) {
         sound_click.play();
         has_sound_click_played = true;
-        screen_on();
+        update_screen_to_be_on();
     }
 
     if (value != constraint && has_sound_click_played == true) {
         has_sound_click_played = false;
-        screen_off();
-    }
-}
-
-// constrains a value to a upper boundry
-function constrain_upper(value, constraint) {
-    if (value > constraint) {
-        return constraint;
-    } else {
-        return value
-    }
-}
-
-// constrains a value to a lower boundry
-function constrain_lower(value, constraint) {
-    if (value < constraint) {
-        return constraint;
-    } else {
-        return value
+        update_screen_to_be_off();
     }
 }
 
@@ -291,32 +261,32 @@ function calc_curve(cord_start_x, cord_start_y, cord_end_x, cord_end_y, cord_len
     // location of control point
     var c1x = mpx + offset * Math.cos(theta);
     var c1y = mpy + offset * Math.sin(theta);
-    c1y = constrain_upper(c1y, get_cord_svg_height());
+    c1y = Math.min(c1y, get_cord_svg_height());
 
     return "M" + cord_start_x + " " + cord_start_y + " Q " + c1x + " " + c1y + " " + cord_end_x + " " + cord_end_y;
 }
 
-// calculates distance of control point from mid-point of line
-function calc_offset(cord_start_x, cord_end_x, cord_start_y, cord_start_y, cord_length_max) {
-    var length_of_x = Math.pow(cord_end_x - cord_start_x, 2);
-    var length_of_y = Math.pow(cord_end_y - cord_start_y, 2);
-    var length_of_cord = Math.sqrt(length_of_x + length_of_y);
-
-    var cord_length_ratio = 1 - (length_of_cord / cord_length_max);
-
-    return -1 * ((cord_length_ratio * cord_offset_max) + cord_offset_min);
-}
-
-// function for when the screen turns on
-function screen_on() {
+/**
+ * Updates the screen look as if it is turned on
+ */
+function update_screen_to_be_on() {
     update_screen_colors("#FFFFFA", "#86cc8a", true);
 }
 
-// function for when the screen turns off
-function screen_off() {
+/**
+ * Updates the screen look as if it is turned off
+ */
+function update_screen_to_be_off() {
     update_screen_colors("#9A9286", "#9A8686", false);
 }
 
+/**
+ * Updates the monitor background color and power button light color. Also updates the
+ * visibility of the screen text.
+ * @param {*} monitor_screen_color the background color for the monitor
+ * @param {*} power_btn_light_color the color of the power button light on the monitor
+ * @param {*} show_screen_text a bool used to update the visibility of the screen text
+ */
 function update_screen_colors(monitor_screen_color, power_btn_light_color, show_screen_text) {
     const monitor_screen = document.querySelector(selectors.monitor.screen);
     const screen_text = document.querySelector(selectors.monitor.screen_text);
