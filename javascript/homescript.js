@@ -33,6 +33,9 @@ const cord_svg_border_size = 5;
 // TODO rename this
 const small_prong_female_x_offset = 9;
 const sound_click = new Audio("sounds/click.mp3");
+const plug_element = document.querySelector(selectors.plug_element);
+const cord_element = document.querySelector(selectors.cord.path)
+const cord_svg = document.querySelector(selectors.cord.svg)
 
 let is_plugged_in = false;
 // if the user has their cursor button held down while over the plug element.
@@ -43,13 +46,11 @@ let plug_x = 0;
 let plug_y = 0;
 // the top y coordinate of the svg element used to draw the cord
 let cord_svg_ceil = getElementOffset(document.querySelector(selectors.monitor.parent)).top;
-let play_area_floor = 0;
-let play_area_ceil = 0;
-let play_area_wall_left = 0;
-let play_area_wall_right = 0;
-let plug_element = document.querySelector(selectors.plug_element);
-let cord_element = document.querySelector(selectors.cord.path)
-let cord_svg = document.querySelector(selectors.cord.svg)
+// the area of the screen in which the plug is able to move
+let play_area_floor;
+let play_area_ceil;
+let play_area_wall_left;
+let play_area_wall_right;
 let socket_x = 0;
 let socket_y = 0;
 let has_sound_click_played = false;
@@ -100,27 +101,28 @@ window.addEventListener('resize', () => {
     move_plug(plug_x, plug_y);
 });
 
-// function to encapsulate all plug movement logic
+/**
+ * Given a new x and y coordinate, this function will update the location of the plug
+ * and cord.
+ * @param {*} new_x new x coordinate
+ * @param {*} new_y new y coordinate
+ */
 function move_plug(new_x, new_y) {
-    update_plug_position(new_x, new_y)
+    plug_x = new_x - plug_offset_x;
+    plug_y = new_y - plug_offset_y;
+
     check_plug_collision();
-    update_plug_element_position();
+
+    // update the position of the plug element
+    plug_element.style.left = `${plug_x}px`;
+    plug_element.style.top = `${plug_y}px`;
+
     update_cord();
 }
 
-// function to update the x and y of the plug
-function update_plug_position(newX, newY) {
-    plug_x = newX - plug_offset_x;
-    plug_y = newY - plug_offset_y;
-}
-
-// update the position of the SVG representing the plug with the plug objects x and y
-function update_plug_element_position() {
-    plug_element.style.left = `${plug_x}px`;
-    plug_element.style.top = `${plug_y}px`;
-}
-
-// function to update cord position
+/**
+ * Updates the position of the cord and recalculates the curve of the cord.
+ */
 function update_cord() {
 
     // move the svg element
@@ -322,14 +324,6 @@ function shift_prongs() {
 }
 
 /**
- * Updates the x and y positions for the socket element
- */
-function update_socket_position() {
-    socket_x = play_area_wall_left - socket_offset_from_wall_left_x;
-    socket_y = get_play_area_height_half() + play_area_ceil - socket_offset_from_center_y;
-}
-
-/**
  * Updates the area in which the plug can be moved, the size and position of where the cord can be drawn, and
  * the position of the wall socket element.
  */
@@ -337,7 +331,10 @@ function update_screen_dependent_variables() {
     update_play_area();
     // update the size of the svg element that draws the cord
     cord_svg_ceil = getElementOffset(document.querySelector(selectors.monitor.parent)).top;
-    update_socket_position();
+
+    // update the socket position
+    socket_x = play_area_wall_left - socket_offset_from_wall_left_x;
+    socket_y = get_play_area_height_half() + play_area_ceil - socket_offset_from_center_y;
 }
 
 // instantly moves the plug to the socket
