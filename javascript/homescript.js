@@ -139,11 +139,11 @@ function update_cord() {
     // calculate the end point and start point coordinates
     const cord_meets_monitor = getElementOffset(document.querySelector(selectors.cord.cord_meets_monitor));
 
-    var cord_end_x = cord_meets_monitor.left - play_area_wall_left;
-    var cord_end_y = cord_meets_monitor.top - cord_svg_ceil;
+    const cord_end_x = cord_meets_monitor.left - play_area_wall_left;
+    const cord_end_y = cord_meets_monitor.top - cord_svg_ceil;
 
-    var cord_start_x = (plug_x + plug_offset_x) - play_area_wall_left;
-    var cord_start_y = (plug_y + plug_offset_y) - cord_svg_ceil;
+    const cord_start_x = (plug_x + plug_offset_x) - play_area_wall_left;
+    const cord_start_y = (plug_y + plug_offset_y) - cord_svg_ceil;
 
     // calculate the curve for the path
     var curve = calc_curve(cord_start_x, cord_start_y, cord_end_x, cord_end_y, cord_end_x);
@@ -170,10 +170,13 @@ function update_play_area() {
     play_area_wall_right = bounding_box_offset.left + bounding_box_absolute_width;
 }
 
-// check if the plug is colliding with any of the play area boundries
+/**
+ * Check if the plug is colliding with any of the play area boundries. If it is
+ * prevent the plug from moving past that point. Also checks plug collisions with the socket
+ */
 function check_plug_collision() {
-    var rightBoundry = play_area_wall_right - plug_element.getAttribute("width");
-    var leftBoundry = play_area_floor - plug_element.getAttribute("height");
+    const rightBoundry = play_area_wall_right - plug_element.getAttribute("width");
+    const leftBoundry = play_area_floor - plug_element.getAttribute("height");
 
     if (is_plugged_in == false) {
 
@@ -201,9 +204,14 @@ function check_plug_collision() {
 }
 
 // check if you have collided with the socket hitbox
+
+/**
+ * Checks if the plug has collided with the socket
+ * @returns true if the plug is currently colliding with the socket and false if the it is not
+ */
 function has_plug_hit_socket() {
-    var socket_hitbox_y_lower = (socket_y) - socket_hitbox_size;
-    var socket_hitbox_y_upper = (socket_y) + socket_hitbox_size;
+    const socket_hitbox_y_lower = (socket_y) - socket_hitbox_size;
+    const socket_hitbox_y_upper = (socket_y) + socket_hitbox_size;
 
     if (plug_y <= socket_hitbox_y_upper && plug_y >= socket_hitbox_y_lower && plug_x == play_area_wall_left) {
         return true;
@@ -212,7 +220,10 @@ function has_plug_hit_socket() {
     }
 }
 
-// checks if the plug is pulled out far enough (if plug_x exceeds the left wall by 1 or more units)
+/**
+ * Checks if the plug is pulled out far enough (if plug_x exceeds the left wall by 1 or more units).
+ * @returns true if the plug has been removed from the socket and false if it has not
+ */
 function has_plug_exited_socket() {
     if (plug_y == socket_y && plug_x >= play_area_wall_left + 1) {
         return false;
@@ -223,7 +234,7 @@ function has_plug_exited_socket() {
 
 // function to prevent plug from exceeding its lower X socket boundry
 function check_hit_end_of_socket() {
-    var boundry = play_area_wall_left - depth_of_socket;
+    const boundry = play_area_wall_left - depth_of_socket;
 
     plug_x = Math.max(plug_x, boundry)
     play_sound_click_if_hit_boundry(plug_x, boundry);
@@ -247,21 +258,21 @@ function play_sound_click_if_hit_boundry(value, constraint) {
 function calc_curve(cord_start_x, cord_start_y, cord_end_x, cord_end_y, cord_length_max) {
 
     // mid-point of line
-    var mpx = (cord_end_x + cord_start_x) * 0.5;
-    var mpy = (cord_end_y + cord_start_y) * 0.5;
+    const mpx = (cord_end_x + cord_start_x) * 0.5;
+    const mpy = (cord_end_y + cord_start_y) * 0.5;
 
     // angle perpendicular to the horizontal
-    var theta = Math.atan2(0, cord_end_x - cord_start_x) - Math.PI / 2;
+    const theta = Math.atan2(0, cord_end_x - cord_start_x) - Math.PI / 2;
 
     // flips the offset sign depending on which point is bigger on the x axis
-    var offset = -800;
+    const offset = -800;
 
     if (cord_start_x > cord_end_x) {
         offset *= -1;
     }
 
     // location of control point
-    var c1x = mpx + offset * Math.cos(theta);
+    const c1x = mpx + offset * Math.cos(theta);
     var c1y = mpy + offset * Math.sin(theta);
     c1y = Math.min(c1y, get_cord_svg_height());
 
@@ -302,18 +313,18 @@ function update_screen_colors(monitor_screen_color, power_btn_light_color, show_
 
 // function to handle the shifting prongs
 function shift_prongs() {
-    var female_large_prong_x = play_area_wall_left;
-    var small_prong_female_x = play_area_wall_left - small_prong_female_x_offset;
+    const female_large_prong_x = play_area_wall_left;
+    const small_prong_female_x = play_area_wall_left - small_prong_female_x_offset;
 
-    var male_large_prong_x = plug_x;
-    var small_prong_male_x = plug_x - small_prong_female_x_offset;
+    const male_large_prong_x = plug_x;
+    const small_prong_male_x = plug_x - small_prong_female_x_offset;
 
     const large_prong = document.querySelector(selectors.cord.large_prong);
     const small_prong = document.querySelector(selectors.cord.small_prong);
     // if the male prongs have moved past the female prongs
     if (female_large_prong_x >= male_large_prong_x) {
-        var offset_large = female_large_prong_x - male_large_prong_x;
-        var offset_small = small_prong_female_x - small_prong_male_x;
+        const offset_large = female_large_prong_x - male_large_prong_x;
+        const offset_small = small_prong_female_x - small_prong_male_x;
 
         large_prong.setAttribute("x", offset_large);
         small_prong.setAttribute("x", offset_small + small_prong_female_x_offset);
@@ -337,7 +348,9 @@ function update_screen_dependent_variables() {
     socket_y = get_play_area_height_half() + play_area_ceil - socket_offset_from_center_y;
 }
 
-// instantly moves the plug to the socket
+/**
+ * instantly set the plug position to be in the socket.
+ */
 function move_plug_to_socket() {
     is_plugged_in = true;
     move_plug(socket_x, socket_y);
