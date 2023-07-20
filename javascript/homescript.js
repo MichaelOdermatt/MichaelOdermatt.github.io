@@ -46,13 +46,14 @@ let plug_x = 0;
 let plug_y = 0;
 // the top y coordinate of the svg element used to draw the cord
 let cord_svg_ceil = getElementOffset(document.querySelector(selectors.monitor.parent)).top;
-// the area of the screen in which the plug is able to move
+// coordinates of the boundries in which the plug is able to move
 let play_area_floor;
 let play_area_ceil;
 let play_area_wall_left;
 let play_area_wall_right;
-let socket_x = 0;
-let socket_y = 0;
+// the x and y coordinates of the socket hitbox
+let socket_x;
+let socket_y;
 let has_sound_click_played = false;
 
 // update the boundries of where the plug can exist
@@ -203,8 +204,6 @@ function check_plug_collision() {
     }
 }
 
-// check if you have collided with the socket hitbox
-
 /**
  * Checks if the plug has collided with the socket
  * @returns true if the plug is currently colliding with the socket and false if the it is not
@@ -236,19 +235,15 @@ function has_plug_exited_socket() {
 function check_hit_end_of_socket() {
     const boundry = play_area_wall_left - depth_of_socket;
 
+    // prevent the plug from moving too far past the socket
     plug_x = Math.max(plug_x, boundry)
-    play_sound_click_if_hit_boundry(plug_x, boundry);
-}
 
-// if a value has hit a limit, play the click sound
-function play_sound_click_if_hit_boundry(value, constraint) {
-    if (value == constraint && has_sound_click_played == false) {
+    // play the click sound if the plug has hit the end of the socket
+    if (plug_x == boundry && has_sound_click_played == false) {
         sound_click.play();
         has_sound_click_played = true;
         update_screen_to_be_on();
-    }
-
-    if (value != constraint && has_sound_click_played == true) {
+    } else if (plug_x != boundry && has_sound_click_played == true) {
         has_sound_click_played = false;
         update_screen_to_be_off();
     }

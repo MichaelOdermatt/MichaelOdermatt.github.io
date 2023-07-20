@@ -22,15 +22,23 @@ function getElementOffset(element) {
     };
 }
 
-// TODO extension method?
-// TODO extract out similar code?
 // Taken from here https://stackoverflow.com/questions/10787782/full-height-of-a-html-element-div-including-border-padding-and-margin
+/**
+ * Returns the absolute height of an element including its margin
+ * @param {*} element the element to get the absolute height from
+ * @returns the absolute height of the given element including its margin
+ */
 function getAbsoluteHieght(element) {
     var styles = window.getComputedStyle(element);
     var margin = parseFloat(styles['marginTop']) + parseFloat(styles['marginBottom']);
     return Math.ceil(element.offsetHeight + margin); 
 }
 
+/**
+ * Returns the absolute width of an element including its margin
+ * @param {*} element the element to get the absolute width from
+ * @returns the absolute width of the given element including its margin
+ */
 function getAbsoluteWidth(element) {
     var styles = window.getComputedStyle(element);
     var margin = parseFloat(styles['marginLeft']) + parseFloat(styles['marginRight']);
