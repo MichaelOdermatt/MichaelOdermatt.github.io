@@ -103,8 +103,9 @@ window.addEventListener('resize', () => {
 });
 
 /**
- * Given a new x and y coordinate, this function will update the location of the plug
- * and cord.
+ * Given a new x and y coordinate, this function will update the location of the plug and cord. 
+ * This function is intended to be run every time mouse movement is detected while the user
+ * is holding the plug.
  * @param {*} new_x new x coordinate
  * @param {*} new_y new y coordinate
  */
@@ -231,7 +232,10 @@ function has_plug_exited_socket() {
     }
 }
 
-// function to prevent plug from exceeding its lower X socket boundry
+/**
+ * Prevents the plug from moving past the socket and plays the 'click' sound
+ * effect once it reaches the back of the socket.
+ */
 function check_hit_end_of_socket() {
     const boundry = play_area_wall_left - depth_of_socket;
 
