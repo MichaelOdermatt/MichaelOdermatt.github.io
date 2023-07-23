@@ -148,7 +148,7 @@ function update_cord() {
     const cord_start_y = (plug_y + plug_offset_y) - cord_svg_ceil;
 
     // calculate the curve for the path
-    var curve = calc_curve(cord_start_x, cord_start_y, cord_end_x, cord_end_y, cord_end_x);
+    var curve = calc_curve(cord_start_x, cord_start_y, cord_end_x, cord_end_y);
 
     cord_element.setAttribute("d", curve)
 }
@@ -253,8 +253,15 @@ function check_hit_end_of_socket() {
     }
 }
 
-// calculate quadratic
-function calc_curve(cord_start_x, cord_start_y, cord_end_x, cord_end_y, cord_length_max) {
+/**
+ * Calculates the curve for the cord svg and returns a formatted string that can be set as the svg's path.
+ * @param {*} cord_start_x the x position of the start of the cord
+ * @param {*} cord_start_y the y position of the start of the cord
+ * @param {*} cord_end_x the x position of the end of the cord
+ * @param {*} cord_end_y the y position of the end of the cord
+ * @returns a formatted string to be used as the path for the cord svg
+ */
+function calc_curve(cord_start_x, cord_start_y, cord_end_x, cord_end_y) {
 
     // mid-point of line
     const mpx = (cord_end_x + cord_start_x) * 0.5;
@@ -264,7 +271,8 @@ function calc_curve(cord_start_x, cord_start_y, cord_end_x, cord_end_y, cord_len
     const theta = Math.atan2(0, cord_end_x - cord_start_x) - Math.PI / 2;
 
     // flips the offset sign depending on which point is bigger on the x axis
-    const offset = -800;
+    // TODO why is the offset set to 800?
+    var offset = -800;
 
     if (cord_start_x > cord_end_x) {
         offset *= -1;
