@@ -1,5 +1,3 @@
-// TODO update all function comments, properly comment functions
-// TODO go through all vars (including ones in functions) and make appropriate ones const
 const selectors = Object.freeze({
     monitor: {
         parent: '#monitor',
@@ -30,8 +28,7 @@ const socket_offset_from_wall_left_x = 0;
 const socket_hitbox_size = 5;
 const depth_of_socket = 36;
 const cord_svg_border_size = 5;
-// TODO rename this
-const small_prong_female_x_offset = 9;
+const small_prong_hole_x_offset = 9;
 const sound_click = new Audio("sounds/click.mp3");
 const plug_element = document.querySelector(selectors.plug_element);
 const cord_element = document.querySelector(selectors.cord.path)
@@ -270,10 +267,11 @@ function calc_curve(cord_start_x, cord_start_y, cord_end_x, cord_end_y) {
     // angle perpendicular to the horizontal
     const theta = Math.atan2(0, cord_end_x - cord_start_x) - Math.PI / 2;
 
-    // flips the offset sign depending on which point is bigger on the x axis
-    // TODO why is the offset set to 800?
+    // the offset is used to determine how much droop the cord should have. An offset value of
+    // zero is essentially a straight line between the two cord ends
     var offset = -800;
 
+    // flips the offset sign depending on which point is bigger on the x axis
     if (cord_start_x > cord_end_x) {
         offset *= -1;
     }
@@ -318,26 +316,29 @@ function update_screen_colors(monitor_screen_color, power_btn_light_color, show_
     screen_text.setAttribute("class", show_screen_text ? "" : "visibility-none");
 }
 
-// function to handle the shifting prongs
+/**
+ * Function to handle the effect of the prongs vanishing inside the socket.
+ */
 function shift_prongs() {
-    const female_large_prong_x = play_area_wall_left;
-    const small_prong_female_x = play_area_wall_left - small_prong_female_x_offset;
+    const large_prong_hole_x = play_area_wall_left;
+    const small_prong_hole_x = play_area_wall_left - small_prong_hole_x_offset;
 
-    const male_large_prong_x = plug_x;
-    const small_prong_male_x = plug_x - small_prong_female_x_offset;
+    const large_prong_x = plug_x;
+    const small_prong_x = plug_x - small_prong_hole_x_offset;
 
     const large_prong = document.querySelector(selectors.cord.large_prong);
     const small_prong = document.querySelector(selectors.cord.small_prong);
-    // if the male prongs have moved past the female prongs
-    if (female_large_prong_x >= male_large_prong_x) {
-        const offset_large = female_large_prong_x - male_large_prong_x;
-        const offset_small = small_prong_female_x - small_prong_male_x;
+
+    // if the prongs have moved past the socket holes
+    if (large_prong_hole_x >= large_prong_x) {
+        const offset_large = large_prong_hole_x - large_prong_x;
+        const offset_small = small_prong_hole_x - small_prong_x;
 
         large_prong.setAttribute("x", offset_large);
-        small_prong.setAttribute("x", offset_small + small_prong_female_x_offset);
+        small_prong.setAttribute("x", offset_small + small_prong_hole_x_offset);
     } else {
         large_prong.setAttribute("x", 0);
-        small_prong.setAttribute("x", small_prong_female_x_offset);
+        small_prong.setAttribute("x", small_prong_hole_x_offset);
     }
 }
 
