@@ -3,8 +3,6 @@ layout: page
 title: Wave Generator 
 ---
 
-<h3>Wave Shape</h3>
-
 <p align="center">
   <img src="https://media.giphy.com/media/lWS8ySFPFM3acEyFKE/giphy.gif" alt="Wave Gif" width="500"/>
 </p>
