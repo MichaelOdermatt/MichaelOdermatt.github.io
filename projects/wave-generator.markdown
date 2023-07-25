@@ -15,9 +15,9 @@ title: Wave Generator
 
 <p align="center">
   <img src="https://github.com/MichaelOdermatt/WaveGenerator/blob/main/Assets/Screenshots/Gerstner%20wave.png?raw=true" alt="Wave Image" width="500" height="275"/>
-  <img src="https://github.com/MichaelOdermatt/WaveGenerator/blob/main/Assets/Screenshots/Gerstner%20wave%202.PNG" alt="Wave Image" width="500" height="275"/>
-  <img src="https://github.com/MichaelOdermatt/WaveGenerator/blob/main/Assets/Screenshots/Gerstner%20wave%203.PNG" alt="Wave Image" width="500" height="275"/>
-  <img src="https://github.com/MichaelOdermatt/WaveGenerator/blob/main/Assets/Screenshots/Gerstner%20wave%204.PNG" alt="Wave Image" width="500" height="275"/>
+  <img src="https://github.com/MichaelOdermatt/WaveGenerator/blob/main/Assets/Screenshots/Gerstner%20wave%202.PNG?raw=true" alt="Wave Image" width="500" height="275"/>
+  <img src="https://github.com/MichaelOdermatt/WaveGenerator/blob/main/Assets/Screenshots/Gerstner%20wave%203.PNG?raw=true" alt="Wave Image" width="500" height="275"/>
+  <img src="https://github.com/MichaelOdermatt/WaveGenerator/blob/main/Assets/Screenshots/Gerstner%20wave%204.PNG?raw=true" alt="Wave Image" width="500" height="275"/>
 </p>
 
 <h3>How I made the whitecaps</h3>
