@@ -124,7 +124,7 @@
 }
 
 .footer-col-wrapper {
-  @include relative-font-size(0.9375);
+  @include relative-font-size(0.85);
   color: $grey-color;
   margin-left: -$spacing-unit / 2;
   @extend %clearfix;
@@ -224,7 +224,7 @@
 @media all and (min-width: 900px){
   .post-page-content {
     margin: auto;
-    width: 50%;
+    width: 50em;
   }
 }
 
