@@ -18,13 +18,11 @@ const selectors = Object.freeze({
     touchscreen_btn: '#touchscreen_button',
 });
  
-// TODO could I just use plug height and width / 2?
 // plug_offset is a corrective value that we use when we calculate the correct x and y values for the plug
 const plug_offset_x = 55;
 const plug_offset_y = 25;
-// TODO what is this?
+// socket_offset is a corrective value that we use when we calculate the correct x and y values for the socket
 const socket_offset_from_center_y = 31;
-const socket_offset_from_wall_left_x = 0;
 const socket_hitbox_size = 5;
 const depth_of_socket = 36;
 const cord_svg_border_size = 5;
@@ -352,7 +350,7 @@ function update_screen_dependent_variables() {
     cord_svg_ceil = getElementOffset(document.querySelector(selectors.monitor.parent)).top;
 
     // update the socket position
-    socket_x = play_area_wall_left - socket_offset_from_wall_left_x;
+    socket_x = play_area_wall_left;
     socket_y = get_play_area_height_half() + play_area_ceil - socket_offset_from_center_y;
 }
 

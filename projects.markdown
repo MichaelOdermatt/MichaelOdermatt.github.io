@@ -18,4 +18,4 @@ permalink: /projects/
 
 <br>
 
-Last Updated July 23rd, 2022
+Last Updated July 25th, 2023
