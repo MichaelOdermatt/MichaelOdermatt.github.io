@@ -12,7 +12,7 @@ permalink: /projects/
       <a href="{{ '/projects/wave-generator' | relative_url }}">Wave Generator</a>
     </li>
     <li>
-      <a href="{{ '/projects/shred-master' | relative_url }}">Terminal Typer</a>
+      <a href="{{ '/projects/terminal-typer' | relative_url }}">Terminal Typer</a>
     </li>
     <li>
       <a href="{{ '/projects/star-marcher' | relative_url }}">Star Marcher</a>
@@ -24,4 +24,4 @@ permalink: /projects/
 
 <br>
 
-Last Updated July 25th, 2023
+Last Updated Oct 22nd, 2023
