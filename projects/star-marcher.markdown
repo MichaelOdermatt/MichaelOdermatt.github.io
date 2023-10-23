@@ -17,4 +17,7 @@ Star Marcher is a small game I built in unity that offers 25 levels, providing a
 ### Download
 [https://michaelodermatt.itch.io/star-marcher](https://michaelodermatt.itch.io/star-marcher)
 
-*View the code on [Github](https://github.com/MichaelOdermatt/Star_Marcher)*
+<p>
+<br>
+Check out the project's repo <a href="https://github.com/MichaelOdermatt/StarMarcher"> here</a>!
+</p>

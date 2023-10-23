@@ -25,3 +25,8 @@ title: Wave Generator
 <h3>Links</h3>
 
 This [Video](https://www.youtube.com/watch?v=MRNFcywkUSA&ab_channel=SebastianLague) and this [Article](https://catlikecoding.com/unity/tutorials/flow/waves/) were a huge help in making this!
+
+<p>
+<br>
+Check out the project's repo <a href="https://github.com/MichaelOdermatt/WaveGenerator"> here</a>!
+</p>
