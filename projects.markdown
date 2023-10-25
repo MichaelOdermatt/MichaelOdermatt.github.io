@@ -24,10 +24,10 @@ Terminal based typing game.
 
 <h3 class="margin-top-50"><a href="https://github.com/MichaelOdermatt/StarMarcher">Star Marcher</a><img src="/assets/unity.png" class="margin-left-10" width="24"/></h3>
 <p>
-2D momentum based game in Unity.
+2D spaceship game built in Unity.
 </p>
-<img src="https://github.com/MichaelOdermatt/Star_Marcher/blob/main/Assets/Screenshots/Screenshot%201.PNG?raw=true" width="600"/>
+<img src="https://github.com/MichaelOdermatt/StarMarcher/blob/main/Screenshots/StarMarcher.gif?raw=true" width="600"/>
 
 <br>
 
-Last Updated Oct 22nd, 2023
+Last Updated Oct 24th, 2023
