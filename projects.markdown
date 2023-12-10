@@ -27,7 +27,3 @@ Terminal based typing game.
 2D spaceship game built in Unity.
 </p>
 <img src="https://github.com/MichaelOdermatt/StarMarcher/blob/main/Screenshots/StarMarcher.gif?raw=true" width="600"/>
-
-<br>
-
-Last Updated Oct 24th, 2023
