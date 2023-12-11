@@ -4,6 +4,12 @@ title: Projects
 permalink: /projects/
 ---
 
+<h3 class="margin-top-75"><a href="https://github.com/MichaelOdermatt/MikesSiteGenerator">Mike's Site Generator</a><img src="/assets/typescript.png" class="margin-left-10" width="24"/></h3>
+<p>
+Static site generator and markdown file parser.
+</p>
+<img src="/assets/MikesSiteGen.png"/>
+
 <h3 class="margin-top-75"><a href="https://github.com/MichaelOdermatt/ShredMaster">Shred Master</a><img src="/assets/godot.png" class="margin-left-10" width="24"/></h3>
 <p>
 2D skateboarding game built in Godot.
